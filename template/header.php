@@ -1,32 +1,29 @@
 <body>
    
 <header>
-    <h2>
+    <h1>
         //* je change le titre en fonction de la page sur laquelle je suis
          <?php
             if(isset($_GET['page'])){
                 $page = $_GET['page'];
                 switch($page){
                     case 'accueil':
-                        echo 'Accueil';
+                        echo 'Accueil - Tretrello';
                         break;
                     case 'inscription':
-                        echo 'Inscription';
+                        echo 'Inscription à Tretrello';
                         break;
                     case 'profil':
-                        echo 'Profil';
-                        break;
-                    case 'deconnexion':
-                        echo 'Déconnexion';
+                        echo 'Gestion du profil de '.$_SESSION['nom'].' '.$_SESSION['prenom'];
                         break;
                     case 'projetcours':
-                        echo 'Projet en cours';
+                        echo 'Projet Tretrello en cours';
                         break;
                      case 'projetfinis':
-                        echo 'Projet Finis';
+                        echo 'Projet Tretrello Finis';
                         break;
                     case 'creerprojet':
-                        echo 'Créer un projet';
+                        echo 'Créer un nouveau projet';
                         break;
                    
                     default:
@@ -37,8 +34,9 @@
             else{
                 echo 'Accueil';
             }
-         ?>
-    </h2>
+         ?> 
+    </h1>
+    <h2>C'est très très bien</h2>
     //* logo du site
     <img src="./../style/assets/tretrello_logo.webp" alt="logo tretrello">
     <nav>
