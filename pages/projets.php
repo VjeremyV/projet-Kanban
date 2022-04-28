@@ -1,9 +1,12 @@
+
+
+
 <h2>Vos <?php if (isset($_GET['terminer_projet'])) {
             echo "Projets terminés :";
         } else {
             echo "Projets en cours :";
         } ?></h2>
-<main>
+
     <?php
     try {
 
@@ -29,4 +32,3 @@
     }
 
     ?>
-</main>

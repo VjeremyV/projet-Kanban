@@ -1,3 +1,0 @@
-fonctionnalités :
-- utiliser la durée estimée pour agier sur la couleur des tâches (rouges si date dépassée)
-- travail equipe

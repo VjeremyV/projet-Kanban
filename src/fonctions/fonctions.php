@@ -6,7 +6,7 @@
  * @param [string] $type d'input
  * @return bool
  */
-function Validform(string $input, string $type=null):bool
+function validForm(string $input, string $type=null):bool
 {
     $errors = [];
     if (isset($input) && !empty($input)) {
@@ -40,4 +40,20 @@ function egalvalue(mixed $valeur1, mixed $valeur2) :bool
         return true;
     }
     return false;
+}
+/**
+ * verifie l'unicité d'un mail dans un tableau de mail
+ *
+ * @param [array] $bddMail
+ * @param [string] $email
+ * @param [string] $cle
+ * @return bool
+ */
+function uniqueMail(array $bddMail, string $email, string $cle):bool{
+    foreach($bddMail as $key => $mail){
+        if($mail[$cle] == $email){
+            return false;
+        }
+    }
+    return true;
 }
