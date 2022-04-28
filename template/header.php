@@ -12,7 +12,7 @@
                     <a href="index.php" class="nav-link">Tretrello</a>
                 </li>
                 <?php
-                    if ($is_connected === true) : //* Avoir pour valider la connexion
+                    if ($is_connected === true) : //* A voir pour valider la connexion
                 ?>
                 <li class="navbar-item">
                     <a href="index.php?page=projetCours" class="nav-link">Projet en cours</a>
