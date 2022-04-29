@@ -4,12 +4,6 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
 
 <body>
 <header>
-    <h1>
- <!-- je change le titre en fonction de la page sur laquelle je suis -->
-         <?php
-       setContent('Accueil - Tretrello', 'Inscription à Tretrello', 'Gestion du profil', 'Vos Projet Tretrello','Créer un nouveau projet');
-         ?> 
-    </h1>
     <h2>C'est très très bien</h2>
  <!-- logo du site -->
     <img src="./../style/assets/tretrello_logo.webp" alt="logo tretrello">
@@ -23,10 +17,10 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                     if (isConnect()) : //* A voir pour valider la connexion
                 ?>
                 <li>
-                    <a href="index.php?page=projetcours" >Projet en cours</a>
+                    <a href="../pages/projets.php?page=encours" >Projet en cours</a>
                  </li>
                  <li >
-                    <a href="index.php?page=projetfinis" >Projet Finis</a>
+                    <a href="../pages/projets.php?page=terminer_projet" >Projet Finis</a>
                  </li>
                  <li >
                     <a href="index.php?page=creerprojet"> Créer Projet</a>
@@ -48,5 +42,11 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                  ?>
             </ul>
     </nav>
+    <h1>
+ <!-- je change le titre en fonction de la page sur laquelle je suis -->
+         <?php
+       setContent('Accueil - Tretrello', 'Inscription à Tretrello', 'Gestion du profil', 'Vos Projet en cours','Créer un nouveau projet', 'Vos Projets terminés');
+         ?> 
+    </h1>
 </header>
 <main>

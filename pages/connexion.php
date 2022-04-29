@@ -10,19 +10,24 @@ try {
         if(validForm($_POST['mail'])){
             $mdp = crypt($_POST['mdp'], CRYPT_SHA512);
             $recupUser = $dbh->prepare('select * from utilisateur WHERE mail_utilisateur = :mail AND password_utilisateur =:password');
-            $recupUser->execute(['mail' => $_POST['mail'], 'password' => $mdp]);
-    
-            if($recupUser->rowCount() > 0){
-                session_start();
-                $_SESSION['mail']=$_POST['mail'];
-                header('location: ./pages/projets.php?page=encours');      
-                echo "connecté";
-            } else {
-                echo "erreur vous êtes mauvais";
+            if($recupUser->execute(['mail' => $_POST['mail'], 'password' => $mdp])){
+
+                $connexion = $recupUser->fetchAll($fetchMode = PDO::FETCH_NAMED);
+                
+                if($recupUser->rowCount() > 0){
+                    session_start();
+                    $_SESSION['mail']=$_POST['mail'];
+                    $_SESSION['id']= $connexion[0]['id_utilisateur_utilisateur'];
+                    header('location: ./pages/projets.php?page=encours');      
+                } else {
+                echo "<p>erreur vous êtes mauvais</p>";
             }
         } else {
-            echo "entrez un mail valide!!!";
+            echo "<p>entrez un mail valide!!!</p>";
         }
+    } else {
+        echo "Une erreur de connexion à la base de données est survenu";
+    }
     }
 }
 catch (Exception $e) {
