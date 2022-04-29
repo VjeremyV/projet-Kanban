@@ -6,5 +6,3 @@
   <div draggable="true" class="box">B</div>
   <div draggable="true" class="box">C</div>
 </div>
-
-<script src=" ./drag&drop.js"></script>
