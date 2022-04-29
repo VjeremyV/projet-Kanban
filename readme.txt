@@ -3,18 +3,28 @@ oragnisation générale :
 - 14h point mis journée
 - 17/18h mise en commun des branches
 
-- systeme d'inscription >> CHARLES
-- systeme de connexion >> CHRISTOPHER
-- header / footer / head >> MICKAEL / CHRISTOPHER
-- routeur >> JEREMY
-- sécurité >> JEREMY
-- page selection projets en cours / terminé 
-- créer projet
-- page profil
+OK - header / footer / head >> MICKAEL / CHRISTOPHER 
+OK - routeur >> JEREMY
+OK - sécurité >> JEREMY
+OK - systeme d'inscription >> CHARLES
+OK - systeme de connexion >> CHRISTOPHER
+
+- page selection projets en cours 
+
+- créer projet :
+	- js -> nombre de catégories dynamique créer un fichier .js >> CHRISTOPHER
+	- soumission formulaire method post
+
+- page profil >> FARAH
+- page d'un projet terminé
+
 - page KANBAN :
 	- page pleine
+	- la modale de gestion de catégories
+	- modale de suppression de catégories
 	- la modale gestion tâche (ou création) qui sera utilisée aussi sur les projets terminés
-- page d'un projet terminé
+	- drag and drop >> js CHARLES
 
 
 (pagination projet en cours / terminés)
+http://projet-kanban/pages/projets.php?page=encours
