@@ -3,8 +3,9 @@ session_start();
 include_once(__DIR__ . '/../template/head.php');
 include_once(__DIR__ . '/../template/header.php');
 include_once(__DIR__.'/../src/fonctions/formulaire.php');
-if (isset($_SESSION['id'])) {
-    var_dump($_SESSION['id']);
+include_once(__DIR__.'/../src/fonctions/security.php');
+
+if (isConnect()) {
 
     if(isset($_POST['submit'])){
         if(validForm($_POST['nomProjet']) && validForm($_POST['description']) && validForm($_POST['nbCategorie'], 'int')){
@@ -28,13 +29,12 @@ if (isset($_SESSION['id'])) {
                     if(validForm($_POST['categorie'.$i])){
                         $nomCat = htmlentities($_POST['categorie'.$i]);
                         $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id']]);
-                    } else {
-                        echo "Vous pourrez définir les champs manquants dans l'onglet de votre projet <br>";
-                    }
+                    } 
                     $i++;
                 }
+                echo "<span>Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l'onglet de votre projet </span>";
             } else {
-                echo "Le nom du projet existe déjà";
+                echo "<span>Le nom du projet existe déjà</span>";
             }
 
             } catch (Exception $e) {

@@ -13,8 +13,8 @@ if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
         try {
         $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
         $vMail = $dbh->query('SELECT `mail_utilisateur` FROM `utilisateur`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
-        echo uniqueMail($vMail, $_POST['mail'], 'mail_utilisateur') ? "mail pas existant <br>" : 'mail existant <br>';
-        if(uniqueMail($vMail, $_POST['mail'], 'mail_utilisateur')){
+        echo isUnique($vMail, $_POST['mail'], 'mail_utilisateur') ? "mail pas existant <br>" : 'mail existant <br>';
+        if(isUnique($vMail, $_POST['mail'], 'mail_utilisateur')){
             $name = htmlentities(ucfirst(strtolower(trim($_POST['name']))));
             $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
             $mail = $_POST['mail'];

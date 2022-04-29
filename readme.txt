@@ -8,23 +8,23 @@ OK - routeur >> JEREMY
 OK - sécurité >> JEREMY
 OK - systeme d'inscription >> CHARLES
 OK - systeme de connexion >> CHRISTOPHER
-
-- page selection projets en cours 
-
-- créer projet :
+OK - créer projet :
 	- js -> nombre de catégories dynamique créer un fichier .js >> CHRISTOPHER
 	- soumission formulaire method post
+OK - page selection projets en cours 
 
-- page profil >> FARAH
+
+- page profil (ATTENTION FAIRE GESTION DES PHOTO IDENTITE) >> FARAH
 - page d'un projet terminé
 
 - page KANBAN :
-	- page pleine
+	OK - restitution des données 
 	- la modale de gestion de catégories
 	- modale de suppression de catégories
 	- la modale gestion tâche (ou création) qui sera utilisée aussi sur les projets terminés
 	- drag and drop >> js CHARLES
 
+- VOIR POUR LE REKAPCHAT
 
 (pagination projet en cours / terminés)
 http://projet-kanban/pages/projets.php?page=encours

@@ -20,15 +20,15 @@ CREATE TABLE projet(
     PRIMARY KEY(id_projet_projet)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     tâches;
-CREATE TABLE tâches(
-    id_tâches_tâches INT AUTO_INCREMENT NOT NULL,
-    nom_tâches VARCHAR(80),
-    date_tâches DATE,
-    description_tâches VARCHAR(255),
-    durée_tâches INT,
+CREATE TABLE taches(
+    id_taches_taches INT AUTO_INCREMENT NOT NULL,
+    nom_taches VARCHAR(80),
+    date_taches DATE,
+    description_taches VARCHAR(255),
+    duree_taches INT,
     id_categorie_categories INT,
     id_utilisateur_utilisateur INT,
-    PRIMARY KEY(id_tâches_tâches)
+    PRIMARY KEY(id_taches_taches)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     commentaires;
 CREATE TABLE commentaires(
@@ -36,7 +36,7 @@ CREATE TABLE commentaires(
     date_commentaires DATE,
     texte_commentaires VARCHAR(255),
     id_utilisateur_utilisateur INT,
-    id_tâches_tâches INT,
+    id_taches_taches INT,
     PRIMARY KEY(id_commentaire_commentaires)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     fichiers;
@@ -44,7 +44,7 @@ CREATE TABLE fichiers(
     id_fichier_fichiers INT AUTO_INCREMENT NOT NULL,
     nom_fichiers VARCHAR(255),
     date_fichiers DATE,
-    id_tâches_tâches INT,
+    id_taches_taches INT,
     id_utilisateur_utilisateur INT,
     PRIMARY KEY(id_fichier_fichiers)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
@@ -58,15 +58,15 @@ CREATE TABLE categories(
 ) ENGINE = InnoDB; ALTER TABLE
     projet ADD CONSTRAINT FK_projet_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE
-    tâches ADD CONSTRAINT FK_tâches_id_categorie_categories FOREIGN KEY(id_categorie_categories) REFERENCES categories(id_categorie_categories);
+    taches ADD CONSTRAINT FK_taches_id_categorie_categories FOREIGN KEY(id_categorie_categories) REFERENCES categories(id_categorie_categories);
 ALTER TABLE
-    tâches ADD CONSTRAINT FK_tâches_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
+    taches ADD CONSTRAINT FK_taches_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE
     commentaires ADD CONSTRAINT FK_commentaires_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE
-    commentaires ADD CONSTRAINT FK_commentaires_id_tâches_tâches FOREIGN KEY(id_tâches_tâches) REFERENCES tâches(id_tâches_tâches);
+    commentaires ADD CONSTRAINT FK_commentaires_id_taches_taches FOREIGN KEY(id_taches_taches) REFERENCES taches(id_taches_taches);
 ALTER TABLE
-    fichiers ADD CONSTRAINT FK_fichiers_id_tâches_tâches FOREIGN KEY(id_tâches_tâches) REFERENCES tâches(id_tâches_tâches);
+    fichiers ADD CONSTRAINT FK_fichiers_id_taches_taches FOREIGN KEY(id_taches_taches) REFERENCES taches(id_taches_taches);
 ALTER TABLE
     fichiers ADD CONSTRAINT FK_fichiers_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE

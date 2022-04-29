@@ -21,7 +21,7 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                     <a href="../pages/projets.php?page=terminer_projet" >Projet Finis</a>
                  </li>
                  <li >
-                    <a href="../pages/createprojet.php?creation=0"> Créer Projet</a>
+                    <a href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a>
                  </li>
                  <li >
                     <a href="index.php?page=profil" >Profil</a>
@@ -41,4 +41,4 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
          ?> 
     </h1>
 </header>
-<main>
+<main class="container">

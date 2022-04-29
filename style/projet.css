@@ -1,0 +1,7 @@
+.categorieContainer, .categorieContainer li{
+    border: 1px solid black;
+    border-radius: 5px;
+    list-style-type: none;
+    text-align: center;
+}
+

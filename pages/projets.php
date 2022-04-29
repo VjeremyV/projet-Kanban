@@ -2,11 +2,12 @@
 session_start();
 include_once(__DIR__.'/../template/head.php');
 include_once(__DIR__.'/../template/header.php');
+include_once(__DIR__.'/../src/fonctions/security.php');
 ?>
 
 
     <?php
-    if(isset($_SESSION['id'])){
+    if(isConnect()){
 
         try {
             
@@ -23,7 +24,7 @@ include_once(__DIR__.'/../template/header.php');
                 foreach ($projets as $projet) {
                     ?>
                 <div>
-                    <span><a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>"><?= $projet['nom_projet'] ?></a></span>
+                    <span><a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>&kanban=true"><?= $projet['nom_projet'] ?></a></span>
                     <span><?= $projet['date_creation_projet'] ?></span>
                     <span><?= $projet['description_projet'] ?></span>
                 </div>
