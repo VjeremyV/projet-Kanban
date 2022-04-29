@@ -15,8 +15,13 @@ function validForm(string $input, string $type=null):bool
                 $errors[] = "le mail est mauvais";
             }
         }
+        if($type == 'int'){
+            if(!is_numeric($input)){
+                $errors[] = "Un champs qui requiert un chiffre a mal été renseigné";
+            }
+        }
     } else {
-        $errors[] = "vous devez remplir les champs";
+        $errors[] = "vous n'avez pas rempli tous les champs";
     }
     if (count($errors) > 0) {
         foreach ($errors as $error) {
@@ -49,7 +54,7 @@ function egalvalue(mixed $valeur1, mixed $valeur2) :bool
  * @param [string] $cle
  * @return bool
  */
-function uniqueMail(array $bddMail, string $email, string $cle):bool{
+function isUnique(array $bddMail, string $email, string $cle):bool{
     foreach($bddMail as $key => $mail){
         if($mail[$cle] == $email){
             return false;

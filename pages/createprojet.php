@@ -2,11 +2,49 @@
 session_start();
 include_once(__DIR__ . '/../template/head.php');
 include_once(__DIR__ . '/../template/header.php');
+include_once(__DIR__.'/../src/fonctions/formulaire.php');
 if (isset($_SESSION['id'])) {
     var_dump($_SESSION['id']);
+
+    if(isset($_POST['submit'])){
+        if(validForm($_POST['nomProjet']) && validForm($_POST['description']) && validForm($_POST['nbCategorie'], 'int')){
+            try {
+                $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
+                $vNomProjet = $dbh->query('SELECT `nom_projet` FROM `projet`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
+            if(isUnique($vNomProjet, $_POST['nomProjet'], 'nom_projet')){
+                $nomProjet = htmlentities($_POST['nomProjet']);
+                $description = htmlentities($_POST['description']);
+                $stmt = $dbh->prepare('insert into projet (`nom_projet`,`description_projet`,`date_creation_projet`,`id_utilisateur_utilisateur`, `terminer_projet`) values (:nom,:description, :date, :id, 0);');
+                $stmt->execute(['nom' => $nomProjet, 'description' => $description, 'date' => date('Y-m-d'), 'id' => $_SESSION['id']]);
+                $i = 0;
+
+                $stmt =$dbh->prepare('SELECT `id_projet_projet` FROM `projet`WHERE `id_utilisateur_utilisateur` = :idUtilisateur AND `nom_projet` = :nomProjet');
+                $stmt->execute(['idUtilisateur' => $_SESSION['id'], 'nomProjet' => $nomProjet]);
+                $resultat = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
+                $idProjet = $resultat[0]['id_projet_projet'];
+
+                $stmt = $dbh->prepare('insert INTO categories (`nom_categories`,`id_projet_projet`,`id_utilisateur_utilisateur`) values (:nom, :idProjet, :idUtilisateur)');
+                while (isset($_POST['categorie'.$i])){
+                    if(validForm($_POST['categorie'.$i])){
+                        $nomCat = htmlentities($_POST['categorie'.$i]);
+                        $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id']]);
+                    } else {
+                        echo "Vous pourrez définir les champs manquants dans l'onglet de votre projet <br>";
+                    }
+                    $i++;
+                }
+            } else {
+                echo "Le nom du projet existe déjà";
+            }
+
+            } catch (Exception $e) {
+                echo 'Erreur : ' . $e->getMessage();
+            }
+        }
+    }
 ?>
 
-    <form action="formulaire.php" method="post">
+    <form action="" method="post">
 
         <label for="nomProjet">Nom du projet : </label>
         <input type="text" id="nomProjet" name="nomProjet">
@@ -15,11 +53,9 @@ if (isset($_SESSION['id'])) {
         <textarea id="description" name="description"></textarea>
 
         <label for="nbCategorie">nombre de Categories: </label>
-        <input type="text" id="nbCategorie" name="nbCategorie" value="1">
+        <input type="text" id="nbCategorie" name="nbCategorie" value="0">
 
         <div id="containerCategorie">
-            <label for="nomCategorie">Nom de la categorie : </label>
-            <input type="text" id="nomCategorie" name="nomCategorie">
         </div>
 
         <input type="submit" name="submit" value="creer">
