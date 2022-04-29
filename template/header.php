@@ -9,9 +9,7 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
     <img src="./../style/assets/tretrello_logo.webp" alt="logo tretrello">
     <nav>
             <ul>
-                <li >
-                    <a href="index.php">Tretrello</a>
-                </li>
+
                 <?php
 // Si connecter alors afficher les projets, le profil et le déconnexion
                     if (isConnect()) : //* A voir pour valider la connexion
@@ -30,12 +28,6 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                  </li>
                  <li >
                     <a href="./../pages/deconnexion.php">Se déconnecter</a>
-                 </li>
-                 <?php
-                   else :
-                 ?>
-                 <li >
-                    <a href="index.php?page=connexion" >Se connecter</a>
                  </li>
                  <?php
                     endif;

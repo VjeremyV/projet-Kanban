@@ -22,11 +22,11 @@ function setContent($string1, $string2, $string3, $string4, $string5, $string6){
                break;
           
            default:
-               echo $string1;
+               echo "Projet : ".$_GET['page'];
                break;
        }
    }
    else{
-       echo $string1;
+       echo "$string1";
    }
 }
