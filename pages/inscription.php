@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . '/../src/fonctions/fonctions.php');
+include_once(__DIR__ . '/../src/fonctions/formulaire.php');
 
 if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
     $validName = validForm($_POST['name']);

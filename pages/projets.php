@@ -1,4 +1,7 @@
-
+<?php
+include_once(__DIR__.'/../template/head.php');
+include_once(__DIR__.'/../template/header.php');
+?>
 
 
 <h2>Vos <?php if (isset($_GET['terminer_projet'])) {
@@ -31,4 +34,6 @@
         echo 'Erreur : ' . $e->getMessage();
     }
 
+
+    include_once(__DIR__.'/../template/footer.php');
     ?>

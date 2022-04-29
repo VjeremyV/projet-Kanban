@@ -1,6 +1,5 @@
 <?php 
-include_once(__DIR__.'/../src/fonctions/fonctions.php');
-session_start();
+include_once(__DIR__.'/../src/fonctions/formulaire.php');
 if(isset($_SESSION['mail']))
 {
     var_dump($_SESSION['mail']);
@@ -14,8 +13,10 @@ try {
             $recupUser->execute(['mail' => $_POST['mail'], 'password' => $mdp]);
     
             if($recupUser->rowCount() > 0){
-                echo "connecté";
+                session_start();
                 $_SESSION['mail']=$_POST['mail'];
+                header('location: ./pages/projets.php?page=encours');      
+                echo "connecté";
             } else {
                 echo "erreur vous êtes mauvais";
             }
@@ -28,12 +29,3 @@ catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
 }
 ?>
-<form action="" method="POST">
-    <label for="mail">Votre email</label>
-    <input type="text" name="mail"  />
-
-    <label for="mdp">Votre mot de passe</label>
-    <input type="password" name="mdp"  />
-
-    <input type="submit" value="Se connecter" name="submit">
-</form>
