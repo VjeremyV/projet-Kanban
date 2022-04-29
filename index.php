@@ -1,8 +1,22 @@
 <?php 
-include_once('./src/core/routeur.php');
 include_once('./pages/connexion.php');
-include_once('./src/fonctions/fonctions.php');
+include_once("./template/head.php");
+include_once("./template/header.php");
+include_once('./src/core/routeur.php');
+include_once('./src/fonctions/formulaire.php');
+?>
 
+<form action="" method="POST">
+    <label for="mail">Votre email</label>
+    <input type="text" name="mail"  />
+
+    <label for="mdp">Votre mot de passe</label>
+    <input type="password" name="mdp"  />
+
+    <input type="submit" value="Se connecter" name="submit">
+</form>
+
+<?php
 if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
     $validName = validForm($_POST['name']);
     $validSurname = validForm($_POST['surname']);
@@ -15,7 +29,6 @@ if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
         try {
         $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
         $vMail = $dbh->query('SELECT `mail_utilisateur` FROM `utilisateur`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
-        echo uniqueMail($vMail, $_POST['mail'], 'mail_utilisateur') ? "mail pas existant <br>" : 'mail existant <br>';
         if(uniqueMail($vMail, $_POST['mail'], 'mail_utilisateur')){
             $name = htmlentities(ucfirst(strtolower(trim($_POST['name']))));
             $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
@@ -25,7 +38,7 @@ if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
                 if (!$stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
                     print '<h2 class="error">Erreur de récupération des données : ' . print_r($statement->errorInfo()) . '</h2>';
                 } else {
-                    echo "on est bon <br>";
+                    echo "<p> Formulaire validé, Vous êtes desormais inscrit ! <!p>";
                 }
         } else {
             echo "le mail est déjà en base de données<br>";
@@ -59,5 +72,5 @@ if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
     </form>';
 }
 
-
+include_once('./template/footer.php');
 ?>

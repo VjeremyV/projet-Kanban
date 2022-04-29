@@ -1,34 +1,44 @@
+<?php
+session_start();
+include_once(__DIR__.'/../template/head.php');
+include_once(__DIR__.'/../template/header.php');
+?>
 
-
-
-<h2>Vos <?php if (isset($_GET['terminer_projet'])) {
-            echo "Projets terminés :";
-        } else {
-            echo "Projets en cours :";
-        } ?></h2>
 
     <?php
-    try {
+    if(isset($_SESSION['id'])){
 
-        $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
-        if (!$projets = $dbh->query('select nom_projet, date_creation_projet, description_projet from projet', $fetchMode = PDO::FETCH_NAMED)->fetchall()) {
-            echo "<p>Il y a eu une erreur lors de la connexion avec la base de donnée.</p>";
-        } else {
-            foreach ($projets as $projet) {
-    ?>
+        try {
+            
+            $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
+            if($_GET['page']=== 'terminer_projet'){
+                $projet= $dbh->prepare('select nom_projet, date_creation_projet, description_projet from projet join utilisateur on projet.id_utilisateur_utilisateur=utilisateur.id_utilisateur_utilisateur WHERE utilisateur.id_utilisateur_utilisateur = :id AND `terminer_projet` = 1');
+            } else {
+                $projet= $dbh->prepare('select nom_projet, date_creation_projet, description_projet from projet join utilisateur on projet.id_utilisateur_utilisateur=utilisateur.id_utilisateur_utilisateur WHERE utilisateur.id_utilisateur_utilisateur = :id AND `terminer_projet` = 0');
+            }
+            if (!$projet->execute(['id' => $_SESSION['id']])){
+                echo "<p>Il y a eu une erreur lors de la connexion avec la base de donnée.</p>";
+            } else {
+                $projets = $projet->fetchAll($fetchMode = PDO::FETCH_NAMED);
+                foreach ($projets as $projet) {
+                    ?>
                 <div>
                     <span><?= $projet['nom_projet'] ?></span>
                     <span><?= $projet['date_creation_projet'] ?></span>
                     <span><?= $projet['description_projet'] ?></span>
                 </div>
-
-    <?php
+                
+                <?php
             }
-            if (isset($_GET['terminer_projet'])) {
-            }
+            
         }
     } catch (Exception $e) {
         echo 'Erreur : ' . $e->getMessage();
     }
-
+    
+    
+    include_once(__DIR__.'/../template/footer.php');
+} else {
+    header('location: /../');
+}
     ?>
