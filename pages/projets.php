@@ -39,6 +39,6 @@ include_once(__DIR__.'/../template/header.php');
     
     include_once(__DIR__.'/../template/footer.php');
 } else {
-    header('location: /../');
+    header('location: ./../');
 }
     ?>
