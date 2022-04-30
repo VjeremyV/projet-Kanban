@@ -1,4 +1,6 @@
-
+/* body{
+    background: black;
+} */
 .categorieContainer, .categorieContainer li{
     border: 1px solid black;
     border-radius: 5px;
@@ -13,10 +15,4 @@
     width: 100%;
     height: 100%;
     padding: 0;
-}
-
-#setUpdateTache{
-    position: absolute;
-    top: -300px;
-    visibility: hidden;
 }

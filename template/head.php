@@ -12,5 +12,6 @@
         <link rel="stylesheet" href="./../style/charte.css">
         <?php if (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
         <link rel="stylesheet" href="./../style/projet.css">
+        <link rel="stylesheet" href="./../style/modal.css">
         <?php endif ?>
 </head>

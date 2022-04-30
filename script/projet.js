@@ -3,6 +3,9 @@ let saveTacheInput = document.getElementById('saveTacheInput');
 let idCatInput = document.getElementById('idCatInput');
 let setUpdateTache = document.getElementById('setUpdateTache');
 
+/**
+ * 
+ */
 function updateTache() {
     let tacheId = item.getAttribute('id');
     saveTacheInput.setAttribute('value', tacheId);

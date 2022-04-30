@@ -12,19 +12,19 @@ OK - créer projet :
 	- js -> nombre de catégories dynamique créer un fichier .js >> CHRISTOPHER
 	- soumission formulaire method post
 OK - page selection projets en cours 
-
+OK - VOIR POUR LE RECAPCHAT
 
 - page profil (ATTENTION FAIRE GESTION DES PHOTO IDENTITE) >> FARAH
 - page d'un projet terminé
 
 - page KANBAN :
 	OK - restitution des données 
+	OK - drag and drop >> js CHARLES
 	- la modale de gestion de catégories
 	- modale de suppression de catégories
 	- la modale gestion tâche (ou création) qui sera utilisée aussi sur les projets terminés
-	- drag and drop >> js CHARLES
 
-- VOIR POUR LE REKAPCHAT
+
 
 (pagination projet en cours / terminés)
 http://projet-kanban/pages/projets.php?page=encours
