@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS
     utilisateur;
+
 CREATE TABLE utilisateur(
     id_utilisateur_utilisateur INT AUTO_INCREMENT NOT NULL,
     mail_utilisateur VARCHAR(30),
@@ -10,6 +11,7 @@ CREATE TABLE utilisateur(
     PRIMARY KEY(id_utilisateur_utilisateur)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     projet;
+
 CREATE TABLE projet(
     id_projet_projet INT AUTO_INCREMENT NOT NULL,
     nom_projet VARCHAR(80),
@@ -20,6 +22,7 @@ CREATE TABLE projet(
     PRIMARY KEY(id_projet_projet)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     tâches;
+
 CREATE TABLE taches(
     id_taches_taches INT AUTO_INCREMENT NOT NULL,
     nom_taches VARCHAR(80),
@@ -28,9 +31,11 @@ CREATE TABLE taches(
     duree_taches INT,
     id_categorie_categories INT,
     id_utilisateur_utilisateur INT,
+    id_projet_projet INT,
     PRIMARY KEY(id_taches_taches)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     commentaires;
+
 CREATE TABLE commentaires(
     id_commentaire_commentaires INT AUTO_INCREMENT NOT NULL,
     date_commentaires DATE,
@@ -40,6 +45,7 @@ CREATE TABLE commentaires(
     PRIMARY KEY(id_commentaire_commentaires)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     fichiers;
+
 CREATE TABLE fichiers(
     id_fichier_fichiers INT AUTO_INCREMENT NOT NULL,
     nom_fichiers VARCHAR(255),
@@ -49,18 +55,23 @@ CREATE TABLE fichiers(
     PRIMARY KEY(id_fichier_fichiers)
 ) ENGINE = InnoDB; DROP TABLE IF EXISTS
     categories;
+
 CREATE TABLE categories(
     id_categorie_categories INT AUTO_INCREMENT NOT NULL,
     nom_categories VARCHAR(80),
     id_projet_projet INT,
     id_utilisateur_utilisateur INT,
     PRIMARY KEY(id_categorie_categories)
-) ENGINE = InnoDB; ALTER TABLE
+) ENGINE = InnoDB; 
+
+ALTER TABLE
     projet ADD CONSTRAINT FK_projet_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE
     taches ADD CONSTRAINT FK_taches_id_categorie_categories FOREIGN KEY(id_categorie_categories) REFERENCES categories(id_categorie_categories);
 ALTER TABLE
     taches ADD CONSTRAINT FK_taches_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
+ALTER TABLE
+    taches ADD CONSTRAINT FK_taches_id_projet_projet FOREIGN KEY(id_projet_projet) REFERENCES projet(id_projet_projet);
 ALTER TABLE
     commentaires ADD CONSTRAINT FK_commentaires_id_utilisateur_utilisateur FOREIGN KEY(id_utilisateur_utilisateur) REFERENCES utilisateur(id_utilisateur_utilisateur);
 ALTER TABLE

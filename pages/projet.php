@@ -2,11 +2,14 @@
 session_start();
 include_once(__DIR__ . '/../template/head.php');
 include_once(__DIR__ . '/../template/header.php');
+include_once(__DIR__.'/../src/fonctions/formulaire.php');
 
 if (isConnect()) {
     $idProjet = $_GET['id'];
     try {
         $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
+        include_once(__DIR__.'./../src/fonctions/draggable.php');
+
         $stmt = $dbh->prepare('SELECT `date_creation_projet`, `description_projet` FROM `projet` WHERE projet.id_projet_projet = :idProjet');
         if ($stmt->execute(['idProjet' => $idProjet])) {
             $resultat = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
@@ -29,15 +32,16 @@ if (isConnect()) {
                 $stmt = $dbh->prepare('SELECT `id_taches_taches`,`nom_taches`,`date_taches`,`description_taches`,`duree_taches`, categories.id_categorie_categories FROM `taches` join categories ON categories.id_categorie_categories = taches.id_categorie_categories WHERE categories.id_projet_projet = :idProjet');
                 if ($stmt->execute(['idProjet' => $idProjet])) {
                     $res = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
+                    // var_dump($res);
                     foreach ($resultats as $resultat) {
                         $categories[] = [$resultat['nom_categories'] => $resultat['id_categorie_categories']];
             ?>
-                        <div class = "categorieContainer px-5 pb-5">
+                        <div class="categorieContainer px-1 pb-5" >
                             <h2><?= $resultat['nom_categories'] ?></h2>
-                            <ul>
+                            <ul data-draggable="target" id = <?= $resultat['id_categorie_categories'] ?>>
                                 <?php for ($j = 0; $j < count($res); $j++) {
                                     if (in_array($resultat['id_categorie_categories'], $res[$j])) {
-                                        echo "<li>" . $res[$j]['nom_taches'] . "</li>";
+                                        echo "<li class= 'p-2 m-1' draggable = 'true' data-draggable = 'item' id = '" . $res[$j]['id_taches_taches'] . "'>" . $res[$j]['nom_taches'] . "</li>";
                                     }
                                 }
                                 ?>
@@ -55,6 +59,10 @@ if (isConnect()) {
         </div>
 
 
+        <form action="" method="post" id="setUpdateTache">
+            <input type="text" value="" id="saveTacheInput" name="saveTacheInput" >
+            <input type="text" value="" id="idCatInput" name="idCatInput" >
+        </form>
     <?php
 
     include_once(__DIR__ . '/../template/footer.php');
