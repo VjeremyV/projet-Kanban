@@ -1,12 +1,12 @@
 </main>
-<footer>
-    © 2022 - Projet Kanban - Réalisé par : Farah, Charles, Christopher, Jérémy, Mika - <a href="https://github.com/VjeremyV/projet-Kanban">GitHub</a>
+<footer class="p-2 mt-5 container text-center">
+    <span>© 2022 - Projet Kanban - Réalisé par : Farah, Charles, Christopher, Jérémy, Mika - <a href="https://github.com/VjeremyV/projet-Kanban">GitHub</a></span>
 </footer>
 <?php if (isset($_GET['creation']) && $_GET['creation'] == "0"): ?>
     <script src="./../script/createprojet.js"></script>
 <?php elseif (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
-    <script src="./../script/projet.js"></script>
-    <script src="./../script/modal.js"></script>
+  <script src="./../script/projet.js"></script>
+  <script src="./../script/modal.js"></script>
 <?php elseif (substr($_SERVER['PHP_SELF'], -9) == 'index.php'): ?>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script type="text/javascript">

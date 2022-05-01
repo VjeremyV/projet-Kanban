@@ -1,9 +1,5 @@
 <?php 
 include_once(__DIR__.'/../src/fonctions/formulaire.php');
-if(isset($_SESSION['mail']))
-{
-    var_dump($_SESSION['mail']);
-}
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
     if(isset($_POST['mail']) && isset($_POST['mdp'])){
@@ -18,6 +14,8 @@ try {
                     session_start();
                     $_SESSION['mail']=$_POST['mail'];
                     $_SESSION['id']= $connexion[0]['id_utilisateur_utilisateur'];
+                    $_SESSION['nom'] = $connexion[0]['nom_utilisateur'];
+                    $_SESSION['prenom'] = $connexion[0]['prenom_utilisateur'];
                     header('location: ./pages/projets.php?page=encours');      
                 } else {
                 echo "<p>erreur vous êtes mauvais</p>";

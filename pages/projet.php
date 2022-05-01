@@ -42,47 +42,50 @@ if (isConnect()) {
                                 <?php for ($j = 0; $j < count($res); $j++) {
                                     if (in_array($resultat['id_categorie_categories'], $res[$j])) {
                                 ?>
-                                        <li class='p-2 m-1' draggable='true' data-draggable='item' id='<?= $res[$j]['id_taches_taches'] ?> '> <?= $res[$j]['nom_taches'] ?><button data-target='#modal' data-toggle='modal' class="<?= $res[$j]['nom_taches'] ?>"> Voir</button></li>
-                                        <div class="modal" id="modal" role="dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-close" data-dismiss="dialog"></div>
-                                                <div class="modal-header">
+                                        <li class='p-2 m-1' draggable='true' data-draggable='item' id='<?= $res[$j]['id_taches_taches'] ?> '> <?= $res[$j]['nom_taches'] ?><button  data-target='#modal-<?=$res[$j]['id_taches_taches']?>' data-toggle='modal' class="<?= $res[$j]['nom_taches'] ?>"> Voir</button></li>
+                                        <div class="modal" id="modal-<?=$res[$j]['id_taches_taches']?>" role="dialog">
+                                            <div class="mw-100 bg-light mx-auto my-auto rounded">
+                                                <div class="p-4 border-bottom border-dark">
                                                     <h3><?= ucfirst($res[$j]['nom_taches']) ?></h3>
                                                 </div>
                                                 <form action="" method="post">
-                                                    <div class="modal-body ">
+                                                    <div class="p-3">
                                                         <label for="description">Description de la tache</label>
                                                         <input type="text" name="description" id="description" value="<?= $res[$j]['description_taches']; ?>">
 
                                                         <label for="date">Date de la tache</label>
                                                         <input type="date" name="date" id="date" value="<?= $res[$j]['date_taches'] ?>">
-
                                                     </div>
-                                                    <div>
-                                                        <h3>Commentaires:</h3>
-                                                        <?php
-                                                        $sth = $dbh->prepare('SELECT * FROM commentaires WHERE id_taches_taches = :id');
-                                                        $sth->execute(array(':id' => $res[$j]['id_taches_taches']));
-                                                        $commentaires = $sth->fetchAll(PDO::FETCH_ASSOC);
-                                                        foreach ($commentaires as $commentaire) {
-                                                            echo "<span>" . $commentaire['date_commentaires'] . '</span><br><p>' . $commentaire['texte_commentaires'] . '</p>';
-                                                        }
-                                                        ?>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button role="button" class="btn-danger" data-dismiss="dialog">Fermer</button>
-                                                        <a href="#" class="btn" role="button">Valider</a>
-                                                    </div>
+                                                    <div class="d-flex flex-column align-items-start px-4 mt-2">
+                                                <h3>Commentaires:</h3>
+                                                <?php
+                                                $sth = $dbh->prepare('SELECT * FROM commentaires WHERE id_taches_taches = :id');
+                                                $sth->execute(array(':id' => $res[$j]['id_taches_taches']));
+                                                $commentaires = $sth->fetchAll(PDO::FETCH_ASSOC);
+                                                if(count($commentaires) > 0){
+                                                    foreach ($commentaires as $commentaire) {
+                                                        echo "<br><span>" . $commentaire['date_commentaires'] . '</span><p>' . $commentaire['texte_commentaires'] . '</p>';
+                                                    }
+                                                } else {
+                                                    echo "<br><span>Il n'y a aucun commentaire sur cette tâche</span>";
+                                                }
+                                                ?>
                                             </div>
+                                            
+                                            <div class="border-top border-dark px-5 py-3 fs-5 d-flex justify-content-end">
+                                                <button role="button" class="btn btn-danger m-2" data-dismiss="dialog">Fermer</button>
+                                                <input type="submit" class ="btn btn-success m-2"value="Envoyer">
+                                            </div>
+                                        </form>
                                         </div>
-                                <?php
+                        </div>
+                <?php
                                     }
                                 }
-                                ?>
-                            </ul>
-                        </div>
-        <?php
+                ?>
+                </ul>
+        </div>
+<?php
 
                     }
                 }
@@ -90,18 +93,18 @@ if (isConnect()) {
         } catch (Exception $e) {
             echo 'Erreur : ' . $e->getMessage();
         }
-        ?>
-        </div>
-        <form action="" method="post" id="setUpdateTache">
-            <input type="hidden" value="" id="saveTacheInput" name="saveTacheInput">
-            <input type="hidden" value="" id="idCatInput" name="idCatInput">
-        </form>
+?>
+</div>
+<form action="" method="post" id="setUpdateTache">
+    <input type="hidden" value="" id="saveTacheInput" name="saveTacheInput">
+    <input type="hidden" value="" id="idCatInput" name="idCatInput">
+</form>
 
-        </div>
-    <?php
+</div>
+<?php
 
     include_once(__DIR__ . '/../template/footer.php');
 } else {
     header('location: ./../');
 }
-    ?>
+?>
