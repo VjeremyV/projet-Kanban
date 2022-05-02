@@ -9,9 +9,14 @@ let setUpdatePosition = document.getElementById('setUpdatePosition');
 let item2;
 console.log(setUpdatePosition);
 
-function updateCategoriePosition(element){
+function updateCategoriePosition(element, sens){
     let container = element.parentNode.parentNode; 
-    let sibling = container.previousSibling.previousSibling;
+    let sibling;
+    if(sens === 'monter'){
+        sibling = container.nextSibling.nextSibling;
+    } else if( sens === 'descendre'){
+        sibling = container.previousSibling.previousSibling;
+    }
 
     let containerOrder = container.style.order;
     let siblingContainerOrder = sibling.style.order;
@@ -29,9 +34,12 @@ function updateCategoriePosition(element){
 }
 
 boutonMoins.forEach(bouton => bouton.addEventListener('click', (e) => {
-    updateCategoriePosition(e.target);
+    updateCategoriePosition(e.target, 'descendre');
     setUpdatePosition.submit();
 }))
 
 
-// boutonPlus.forEach(bouton => console.log(bouton))
+boutonPlus.forEach(bouton => bouton.addEventListener('click', (e) => {
+    updateCategoriePosition(e.target, 'monter');
+    setUpdatePosition.submit();
+}))
