@@ -1,6 +1,7 @@
 <?php
- echo '<form action="?inscription=true" method="POST">
- <label for="name">Nom :</label>
+ echo '<form action="?inscription=true" method="POST" class =" d-flex flex-column justify-content-center align-items-center">
+    
+    <label for="name">Nom :</label>
      <input type="text" name="name" id="name" >
  
      <label for="surname">Prénom :</label>
@@ -21,4 +22,4 @@
      <div class="g-recaptcha" data-sitekey="6LeW3LMfAAAAAMugN2owWR3iIAJVqOfjfebFecZc"></div>
  
  <input type="submit" value="s\'incrire" name="submit">
- </form>';
+ </form> <span id="barre"></span>';

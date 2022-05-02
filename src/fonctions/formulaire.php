@@ -60,3 +60,15 @@ function isUnique(array $bddMail, string $email, string $cle):bool{
     }
     return true;
 }
+/**
+ * verifie la validité d'une date
+ *
+ * @param [string] $date à checker
+ * @param string $format à tester
+ * @return bool
+ */
+function validateDate(string $date, string $format = 'Y-m-d H:i:s'):bool
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
