@@ -1,4 +1,5 @@
 
+
  echo '<form  class = "form-group d-flex flex-column justify-content center  align-items center" action="?inscription=true" method="POST">
  <div class="form-group">
  <label for="name">Nom :</label>
