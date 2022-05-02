@@ -1,5 +1,5 @@
 <?php
- echo '<form action="?inscription=true" method="POST" class =" d-flex flex-column justify-content-center align-items-center">
+ echo '<form action="?inscription=true" method="POST" class =" d-flex flex-column justify-content-center align-items-center" enctype="multipart/form-data" >
     
     <label for="name">Nom :</label>
      <input type="text" name="name" id="name" >

@@ -43,11 +43,33 @@ if(isConnect()){
                         $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
                         $mail = $_POST['mail'];
                         $password = crypt($_POST['pass'], CRYPT_SHA512);
-                        $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
-                        if (!$stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                            print '<span class="error">Erreur de récupération des données : ' . print_r($statement->errorInfo()) . '</span>';
+                        // $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
+                        if(isset($_FILES)){
+                            if(validFile('file')){
+                                $photo = htmlentities($_POST['photo']);
+                                $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
+                                if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {
+                                echo "<span>Votre inscription s'est bien passée, votre photo est chargée </span>";
+                                } else {
+                                    echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                }
+                            } else {
+                                $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
+                                if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
+                                    echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
+                                    echo "<span>Votre photo de profil ne correspond pas aux critères exigés</span>";
+                                    } else {
+                                        echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                    }
+                                
+                            }
                         } else {
-                            echo "<span> Formulaire validé, Vous êtes desormais inscrit ! </span>";
+                            $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
+                            if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
+                                echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
+                                } else {
+                                    echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                }
                         }
                     } else {
                         include_once('./pages/inscription.php');

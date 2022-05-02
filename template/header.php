@@ -3,12 +3,9 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
 ?>
 
 <body>
-<header class="container" role="banner">
+<header class="container-fluid" role="banner">
 
-
-
-
-<div class="col d-flex justify-content-between align-items-center navContainer bg-light  px-lg-3">
+<div class="col d-flex justify-content-between align-items-center bg-light  px-lg-3">
 
 <a href="./../index.php" class=" col-lg-4 d-flex align-items-start text-decoration-none flex-column">
     <img src="./../style/assets/tretrello_logo.webp" class="image" alt="logo-tretrello">
@@ -19,11 +16,12 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                     if (isConnect()) : //* A voir pour valider la connexion
                 ?>
 <nav class=" col-lg-8 d-none d-lg-block">
-    <ul class="d-flex text-black-50 fw-bold justify-content-around fs-5 mt-3">
+    <ul class="d-flex text-black-50 fw-bold justify-content-between fs-5 mt-3 align-items-center">
         <li><a class='link-<?= isset($_GET['page']) && $_GET['page']== "encours" ? "warning" : "primary"?>' <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=encours" >Projet en cours</a></li>
         <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "terminer_projet" ? "warning" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=terminer_projet" >Projet Finis</a></li>
         <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "creerprojet" ? "warning" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "profil" ? "warning" : "primary"?>"<?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?> href="index.php?page=profil" >Profil</a></li>
+        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "profil" ? "warning" : "primary"?>"<?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?> href="index.php?page=profil" ><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+</a></li>
         <li><a class="link-primary" href="./../pages/deconnexion.php">Se déconnecter</a></li>
     </ul>
 </nav>
@@ -41,7 +39,8 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
     <li><a class="dropdown-item" href="../pages/projets.php?page=encours" >Projet en cours</a></li>
     <li><a class="dropdown-item" href="../pages/projets.php?page=terminer_projet" >Projet Finis</a></li>
     <li><a class="dropdown-item" href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-    <li><a class="dropdown-item" href="index.php?page=profil" >Profil</a></li>
+    <li><a class="dropdown-item" href="index.php?page=profil" ><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+</a></li>
     <li><a class="dropdown-item" href="./../pages/deconnexion.php">Se déconnecter</a></li>
 </ul>
 <?php
