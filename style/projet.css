@@ -1,14 +1,15 @@
-/* body{
-    background: black;
-} */
+body{
+    counter-reset: categoriesCounter;
+} 
 .categorieContainer, .categorieContainer li{
     border: 1px solid black;
     border-radius: 5px;
     text-align: center;
 }
 .categorieContainer{
+    counter-increment: categoriesCounter;
     position: relative;
-    width: 15%;
+    width: 100% / counter(categoriesCounter);
 }
 
 [data-draggable="target"]{
@@ -18,7 +19,7 @@
     padding: 0;
 }
 
-textarea[name=com]{
+textarea{
     resize : none;
     width: 90%;
     height: 100px;

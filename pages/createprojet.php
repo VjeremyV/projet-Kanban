@@ -28,11 +28,11 @@ if (isConnect()) {
                         $resultat = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
                         $idProjet = $resultat[0]['id_projet_projet'];
 
-                        $stmt = $dbh->prepare('insert INTO categories (`nom_categories`,`id_projet_projet`,`id_utilisateur_utilisateur`) values (:nom, :idProjet, :idUtilisateur)');
+                        $stmt = $dbh->prepare('insert INTO categories (`nom_categories`,`id_projet_projet`,`id_utilisateur_utilisateur`,`ordre`) values (:nom, :idProjet, :idUtilisateur, :ordre)');
                         while (isset($_POST['categorie' . $i])) {
                             if (validForm($_POST['categorie' . $i])) {
                                 $nomCat = htmlentities($_POST['categorie' . $i]);
-                                $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id']]);
+                                $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id'], 'ordre' => $i+1]);
                             }
                             $i++;
                         }
