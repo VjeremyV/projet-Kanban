@@ -35,6 +35,7 @@ if(isConnect()){
         $response = json_decode($response);
         if ($response->success) {
             if ($validName && $validmail && $validMdp && $validSurname && $validMdp) {
+                if($egalMdp){
                 $regex = "/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/";
                 if(preg_match($regex, $_POST['pass'])){
                     try {
@@ -45,9 +46,7 @@ if(isConnect()){
                             $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
                             $mail = $_POST['mail'];
                             $password = crypt($_POST['pass'], CRYPT_SHA512);
-                            // $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                             if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
-                                // var_dump($_FILES);
                                 if(validFile('file')){
                                     $photo = htmlentities($_POST['photo']);
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
@@ -88,8 +87,11 @@ if(isConnect()){
                 $dbh = null;
             } else {
                 include_once('./pages/inscription.php');
-                echo '<span class="mt-3 alert alert-danger" role="alert">veuillez renseigner correctement tous les champs</span>';
+                echo '<span class="mt-3 alert alert-danger" role="alert">Vos mots de passes ne correspondent pas</span>';
             } 
+            } else {
+                echo '<span class="mt-3 alert alert-danger" role="alert">veuillez renseigner correctement tous les champs</span>';
+            }
         } else {
             include_once('./pages/inscription.php');
             echo '<span class="mt-5 alert alert-danger" role="alert">veuillez cocher le Recaptcha</span>';
