@@ -9,14 +9,14 @@ if(isConnect()){
 } else {
     ?>
     
-    <form action="" method="POST">
-        <label for="mail">Votre email</label>
-        <input type="text" name="mail" />
+    <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+        <label class = "m-1" for="mail">Votre email</label>
+        <input class = "m-1" type="text" name="mail" />
     
-        <label for="mdp">Votre mot de passe</label>
-        <input type="password" name="mdp" />
+        <label class = "m-1" for="mdp">Votre mot de passe</label>
+        <input class = "m-1" type="password" name="mdp" />
         
-        <input type="submit" value="Se connecter" name="submit">
+        <input class = "m-1 btn btn-primary" type="submit" value="Se connecter" name="submit">
     </form>
     
     <?php
@@ -47,52 +47,52 @@ if(isConnect()){
                             $password = crypt($_POST['pass'], CRYPT_SHA512);
                             // $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                             if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
-                                var_dump($_FILES);
+                                // var_dump($_FILES);
                                 if(validFile('file')){
                                     $photo = htmlentities($_POST['photo']);
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
                                     if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {
-                                    echo "<span>Votre inscription s'est bien passée, votre photo est chargée </span>";
+                                    echo '<span class="mt-3 alert alert-success" role="alert">Votre inscription s\'est bien passée, votre photo est chargée </span>';
                                     } else {
-                                        echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                        echo '<span class="mt-3 alert alert-danger" role="alert"> Erreur lors de la soumission du formulaire</span>';
                                     }
                                 } else {
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                                     if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                                        echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
-                                        echo "<span>Votre photo de profil ne correspond pas aux critères exigés</span>";
+                                        echo '<span class=" mt-3 alert alert-success" role="alert">Votre inscription s\'est bien passée, Mais </span> <br>';
+                                        echo '<span class="mt-3 alert alert-dark" role="alert">Votre photo de profil ne correspond pas aux critères exigés</span>';
                                         } else {
-                                            echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                            echo '<span class="mt-3 alert alert-danger" role="alert"> Erreur lors de la soumission du formulaire</span>';
                                         }
                                     
                                 }
                             } else {
                                 $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                                 if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                                    echo "<span>Votre inscription s'est bien passée</span> <br>";
+                                    echo '<span class=" mt-3 alert alert-success" role="alert">Votre inscription s\'est bien passée</span> <br>';
                                     } else {
-                                        echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                        echo '<span class="mt-3 alert alert-danger" role="alert"> Erreur lors de la soumission du formulaire</span>';
                                     }
                             }
                         } else {
                             include_once('./pages/inscription.php');
-                            echo "<span>le mail est déjà en base de données</span>";
+                            echo '<span class="mt-3 alert alert-danger" role="alert">le mail est déjà en base de données</span>';
                         }
                     } catch (Exception $e) {
                         echo 'Erreur : ' . $e->getMessage();
                     }
                 } else {
                     include_once('./pages/inscription.php');
-                    echo '<span>Votre mot de passe ne contient pas les caractères attendus (1 Maj, 1 Min, 1 Chiffre, 1 carac spécial)</span>';
+                    echo '<span class="mt-3 alert alert-danger" role="alert">Votre mot de passe ne contient pas les caractères attendus (1 Maj, 1 Min, 1 Chiffre, 1 carac spécial)</span>';
                 }
                 $dbh = null;
             } else {
                 include_once('./pages/inscription.php');
-                echo "<span>veuillez remplir tous les champs</span>";
+                echo '<span class="mt-3 alert alert-danger" role="alert">veuillez renseigner correctement tous les champs</span>';
             } 
         } else {
             include_once('./pages/inscription.php');
-            echo "<span>veuillez cocher le Recaptcha</span>";
+            echo '<span class="mt-5 alert alert-danger" role="alert">veuillez cocher le Recaptcha</span>';
         }
     } else {
         include_once('./pages/inscription.php');
