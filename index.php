@@ -35,48 +35,55 @@ if(isConnect()){
         $response = json_decode($response);
         if ($response->success) {
             if ($validName && $validmail && $validMdp && $validSurname && $validMdp) {
-                try {
-                    $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
-                    $vMail = $dbh->query('SELECT `mail_utilisateur` FROM `utilisateur`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
-                    if (isUnique($vMail, $_POST['mail'], 'mail_utilisateur')) {
-                        $name = htmlentities(ucfirst(strtolower(trim($_POST['name']))));
-                        $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
-                        $mail = $_POST['mail'];
-                        $password = crypt($_POST['pass'], CRYPT_SHA512);
-                        // $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
-                        if(isset($_FILES)){
-                            if(validFile('file')){
-                                $photo = htmlentities($_POST['photo']);
-                                $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
-                                if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {
-                                echo "<span>Votre inscription s'est bien passée, votre photo est chargée </span>";
+                $regex = "/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/";
+                if(preg_match($regex, $_POST['pass'])){
+                    try {
+                        $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
+                        $vMail = $dbh->query('SELECT `mail_utilisateur` FROM `utilisateur`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
+                        if (isUnique($vMail, $_POST['mail'], 'mail_utilisateur')) {
+                            $name = htmlentities(ucfirst(strtolower(trim($_POST['name']))));
+                            $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
+                            $mail = $_POST['mail'];
+                            $password = crypt($_POST['pass'], CRYPT_SHA512);
+                            // $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
+                            if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
+                                var_dump($_FILES);
+                                if(validFile('file')){
+                                    $photo = htmlentities($_POST['photo']);
+                                    $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
+                                    if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {
+                                    echo "<span>Votre inscription s'est bien passée, votre photo est chargée </span>";
+                                    } else {
+                                        echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                    }
                                 } else {
-                                    echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                    $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
+                                    if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
+                                        echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
+                                        echo "<span>Votre photo de profil ne correspond pas aux critères exigés</span>";
+                                        } else {
+                                            echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
+                                        }
+                                    
                                 }
                             } else {
                                 $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                                 if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                                    echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
-                                    echo "<span>Votre photo de profil ne correspond pas aux critères exigés</span>";
+                                    echo "<span>Votre inscription s'est bien passée</span> <br>";
                                     } else {
                                         echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
                                     }
-                                
                             }
                         } else {
-                            $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
-                            if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                                echo "<span>Votre inscription s'est bien passée, Mais </span> <br>";
-                                } else {
-                                    echo '<span class="error"> Erreur lors de la soumission du formulaire</span>';
-                                }
+                            include_once('./pages/inscription.php');
+                            echo "<span>le mail est déjà en base de données</span>";
                         }
-                    } else {
-                        include_once('./pages/inscription.php');
-                        echo "<span>le mail est déjà en base de données</span>";
+                    } catch (Exception $e) {
+                        echo 'Erreur : ' . $e->getMessage();
                     }
-                } catch (Exception $e) {
-                    echo 'Erreur : ' . $e->getMessage();
+                } else {
+                    include_once('./pages/inscription.php');
+                    echo '<span>Votre mot de passe ne contient pas les caractères attendus (1 Maj, 1 Min, 1 Chiffre, 1 carac spécial)</span>';
                 }
                 $dbh = null;
             } else {
