@@ -1,36 +1,13 @@
 <?php
-<<<<<<< HEAD
 echo '
 <div class="d-md-flex mt-4 col-md-11">
  <form action="?inscription=true" method="POST" class="flex-md-columns col-md-6">
-=======
- echo '<form action="?inscription=true" method="POST" class =" d-flex flex-column justify-content-center align-items-center">
-    
-    <label for="name">Nom :</label>
-     <input type="text" name="name" id="name" >
- 
-     <label for="surname">Prénom :</label>
-     <input type="text" name="surname" id="surname" >
- 
-     <label for="mail">Adresse mail :</label>
-     <input type="mail" name="mail" id="mail" >
- 
-     <label for="pass">Mot de passe :</label>
-     <input type="password" name="pass" id="pass" >
- 
-     <label for="realpass">Confirmez votre mot de passe :</label>
-     <input type="password" name="realpass" id="realpass" >
- 
-     <label for="file">Ajoutez une photo de profil :</label>
-     <input type="file" name="file" id="file">
->>>>>>> developp
 
 <div class="form-floating my-3">
  <input type="text" name="name" id="name" class="form-control" placeholder="Nom">
  <label for="name">Nom</label>
 </div>
  
-<<<<<<< HEAD
 <div class="form-floating my-3">
 <input type="text" name="surname" id="surname"  class="form-control" placeholder="Prenom">
 <label for="surname" class="form-label pe-2">Prénom</label>
@@ -90,7 +67,3 @@ echo '
 </div>
 </div>
     ';
-=======
- <input type="submit" value="s\'incrire" name="submit">
- </form> <span id="barre"></span>';
->>>>>>> developp
