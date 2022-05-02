@@ -149,8 +149,8 @@ if (isConnect()) {
             <div class="mw-100 bg-light mx-auto my-auto rounded">
                 <form action="" method="post">
                     <div class="p-3 border-bottom border-dark d-flex flex-column justiy-content-center align-items-start">
-                        <label for="newTache">Intitulé de la Catégorie</label>
-                        <input type="text" id='newTache' name='newTache' class="h3"></input>
+                        <label for="newCategorie">Intitulé de la Catégorie</label>
+                        <input type="text" id='newCategorie' name='newCategorie' class="h3"></input>
                     </div>
                     <input type="hidden" name="idProjet" value="<?= $_GET['id']?>">
                     <div class="border-top border-dark px-5 py-3 fs-5 d-flex ">

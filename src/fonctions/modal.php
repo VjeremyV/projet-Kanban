@@ -40,3 +40,17 @@ if(isset($_POST['suppression']) && isset($_POST['supprId'])){
         echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
     }
 }
+
+if(isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])){
+    $newCat = htmlentities($_POST['newCategorie']);
+    $stmt = $dbh->prepare('select Count(*) from categories Where `id_projet_projet` = :idProjet');
+    if($stmt->execute(['idProjet' => $_GET['id']])){
+        $nbreCat = $stmt->fetch(PDO::FETCH_NUM);
+        $stmt=$dbh->prepare('insert into categories (`nom_categories`, `id_projet_projet`,`id_utilisateur_utilisateur`, `ordre`) VALUES (:nomCat, :idProjet, :idUser, :ordre)');
+        if(!$stmt->execute(['nomCat' => $newCat, 'idProjet' => $_GET['id'], 'idUser' => $_SESSION['id'], 'ordre' => $nbreCat[0]+1])){
+            echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+        }
+    } else {
+        echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+    }
+}
