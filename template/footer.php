@@ -7,6 +7,7 @@
 <?php elseif (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
   <script src="./../script/projet.js"></script>
   <script src="./../script/modal.js"></script>
+  <script src="./../script/boutonsKanban.js"></script>
 <?php elseif (substr($_SERVER['PHP_SELF'], -9) == 'index.php'): ?>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script type="text/javascript">

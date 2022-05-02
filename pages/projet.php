@@ -10,6 +10,8 @@ if (isConnect()) {
         $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
         include_once(__DIR__ . './../src/fonctions/draggable.php');
         include_once(__DIR__ . '/../src/fonctions/modal.php');
+        include_once(__DIR__ . '/../src/fonctions/categoriesPosition.php');
+
 
         $stmt = $dbh->prepare('SELECT `date_creation_projet`, `description_projet` FROM `projet` WHERE projet.id_projet_projet = :idProjet');
         if ($stmt->execute(['idProjet' => $idProjet])) {
@@ -24,7 +26,7 @@ if (isConnect()) {
         ?>
         <div class="d-flex justify-content-between">
             <?php
-            $stmt = $dbh->prepare('SELECT `nom_categories`,`id_categorie_categories` FROM categories join projet on categories.id_projet_projet = projet.id_projet_projet WHERE projet.id_projet_projet = :idProjet');
+            $stmt = $dbh->prepare('SELECT `nom_categories`,`id_categorie_categories`,`ordre` FROM categories join projet on categories.id_projet_projet = projet.id_projet_projet WHERE projet.id_projet_projet = :idProjet ORDER BY ordre');
             if ($stmt->execute(['idProjet' => $idProjet])) {
                 $resultats = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
                 $i = 0;
@@ -33,13 +35,17 @@ if (isConnect()) {
                 $stmt = $dbh->prepare('SELECT `id_taches_taches`,`nom_taches`,`date_taches`,`description_taches`,`duree_taches`, categories.id_categorie_categories FROM `taches` join categories ON categories.id_categorie_categories = taches.id_categorie_categories WHERE categories.id_projet_projet = :idProjet');
                 if ($stmt->execute(['idProjet' => $idProjet])) {
                     $res = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
-                    // var_dump($res);
+                    // var_dump($resultats);
+                    // echo count($resultats);
                     foreach ($resultats as $resultat) {
                         $categories[] = [$resultat['nom_categories'] => $resultat['id_categorie_categories']];
             ?>
-                        <div class="categorieContainer px-1 pb-5">
-                            <h2><?= $resultat['nom_categories'] ?></h2>
-                            <ul data-draggable="target" id=<?= $resultat['id_categorie_categories'] ?>>
+   
+                        <div class="categorieContainer px-1 pb-5" data-id="<?= $resultat['id_categorie_categories'] ?>" style ="order :<?= $resultat['ordre']?> ;">
+
+                            <h2><?php if($resultat['ordre'] > 1):?><button class="fs-5 px-2 mx-2 btn border boutonMoins"><</button><?php endif;?><?= $resultat['nom_categories'] ?><?php if($resultat['ordre'] < count($resultats)):?> <button class="fs-5 px-2 mx-2 btn border boutonPlus">></button><?php endif;?></h2>
+                            
+                                <ul data-draggable="target" id=<?= $resultat['id_categorie_categories'] ?>>
                                 <?php for ($j = 0; $j < count($res); $j++) {
                                     if (in_array($resultat['id_categorie_categories'], $res[$j])) {
                                 ?>
