@@ -24,9 +24,7 @@ function validForm(string $input, string $type=null):bool
         $errors[] = "vous n'avez pas rempli tous les champs";
     }
     if (count($errors) > 0) {
-        foreach ($errors as $error) {
-            echo $error;
-        }
+      
         return false;
     }
     return true;
