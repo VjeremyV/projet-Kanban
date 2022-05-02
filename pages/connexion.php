@@ -16,6 +16,7 @@ try {
                     $_SESSION['id']= $connexion[0]['id_utilisateur_utilisateur'];
                     $_SESSION['nom'] = $connexion[0]['nom_utilisateur'];
                     $_SESSION['prenom'] = $connexion[0]['prenom_utilisateur'];
+                    $_SESSION['photo'] = $connexion[0]['photo_utilisateur'];
                     header('location: ./pages/projets.php?page=encours');      
                 } else {
                 echo "<p>erreur vous êtes mauvais</p>";
