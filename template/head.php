@@ -17,12 +17,8 @@
         <title><?php setContent('Accueil - TRETRELLO', 'Inscription - TRETRELLO', 'Votre Profil - TRETRELLO', 'Vos Projets en cours - TRETRELLO', 'Création d\'un nouveau projet - TRETRELLO', 'Vos Projets terminés - TRETRELLO') ?></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="./../style/charte.css">
-<<<<<<< HEAD
-        <link rel="stylesheet" href="./../style/drag-dropt.css">
-=======
-        <?php if (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
-        <link rel="stylesheet" href="./../style/projet.css">
-        <link rel="stylesheet" href="./../style/modal.css">
+        <?php if (isset($_GET['kanban']) && $_GET['kanban'] == "true") : ?>
+                <link rel="stylesheet" href="./../style/projet.css">
+                <link rel="stylesheet" href="./../style/modal.css">
         <?php endif ?>
->>>>>>> developp
 </head>
