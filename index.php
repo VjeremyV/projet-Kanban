@@ -45,12 +45,12 @@ if(isConnect()){
                         $password = crypt($_POST['pass'], CRYPT_SHA512);
                         $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                         if (!$stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                            print '<h2 class="error">Erreur de récupération des données : ' . print_r($statement->errorInfo()) . '</h2>';
+                            print '<span class="error">Erreur de récupération des données : ' . print_r($statement->errorInfo()) . '</span>';
                         } else {
-                            echo "<p> Formulaire validé, Vous êtes desormais inscrit ! <!p>";
+                            echo "<span> Formulaire validé, Vous êtes desormais inscrit ! </span>";
                         }
                     } else {
-                        echo "le mail est déjà en base de données<br>";
+                        echo "<span>le mail est déjà en base de données</span>";
                     }
                 } catch (Exception $e) {
                     echo 'Erreur : ' . $e->getMessage();
@@ -59,7 +59,7 @@ if(isConnect()){
             } 
         } else {
             include_once('./pages/inscription.php');
-            echo "veuillez cocher le Recaptcha";
+            echo "<span>veuillez cocher le Recaptcha</span>";
         }
     } else {
         include_once('./pages/inscription.php');
