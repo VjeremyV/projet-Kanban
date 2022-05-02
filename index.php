@@ -50,12 +50,16 @@ if(isConnect()){
                             echo "<span> Formulaire validé, Vous êtes desormais inscrit ! </span>";
                         }
                     } else {
+                        include_once('./pages/inscription.php');
                         echo "<span>le mail est déjà en base de données</span>";
                     }
                 } catch (Exception $e) {
                     echo 'Erreur : ' . $e->getMessage();
                 }
                 $dbh = null;
+            } else {
+                include_once('./pages/inscription.php');
+                echo "<span>veuillez remplir tous les champs</span>";
             } 
         } else {
             include_once('./pages/inscription.php');
