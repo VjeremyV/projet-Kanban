@@ -45,16 +45,25 @@ if (isConnect()) {
                                         <li class='p-2 m-1' draggable='true' data-draggable='item' id='<?= $res[$j]['id_taches_taches'] ?> '> <?= $res[$j]['nom_taches'] ?><button  data-target='#modal-<?=$res[$j]['id_taches_taches']?>' data-toggle='modal' class="<?= $res[$j]['nom_taches'] ?>"> Voir</button></li>
                                         <div class="modal" id="modal-<?=$res[$j]['id_taches_taches']?>" role="dialog">
                                             <div class="mw-100 bg-light mx-auto my-auto rounded">
-                                                <div class="p-4 border-bottom border-dark">
-                                                    <h3><?= ucfirst($res[$j]['nom_taches']) ?></h3>
-                                                </div>
                                                 <form action="" method="post">
-                                                    <div class="p-3">
-                                                        <label for="description">Description de la tache</label>
-                                                        <input type="text" name="description" id="description" value="<?= $res[$j]['description_taches']; ?>">
+                                                <div class="p-4 border-bottom border-dark">
+                                                    <input type="text" id='nomTache' name ='nomTache' class ="h3" value="<?= ucfirst($res[$j]['nom_taches']) ?>"></input>
+                                                </div>
+                                                    <div class="p-3 d-flex flex-column justiy-content-center align-items-start">
+                                                        <div class="p-2">
+                                                            <label for="description">Description de la tache</label>
+                                                            <input type="text" name="description" id="description" value="<?= $res[$j]['description_taches']; ?>">
+                                                            
+                                                            <label for="date">Date de création</label>
+                                                            <input type="date" name="date" id="date" value="<?= $res[$j]['date_taches'] ?>">
+                                                        </div>
+                                                        
+                                                        <div class="p-2 d-flex" >
+                                                            <label for="date">Ajouter un commentaire</label>
+                                                            <textarea name="com" id="com" value=""></textarea>
+                                                            
+                                                        </div>
 
-                                                        <label for="date">Date de la tache</label>
-                                                        <input type="date" name="date" id="date" value="<?= $res[$j]['date_taches'] ?>">
                                                     </div>
                                                     <div class="d-flex flex-column align-items-start px-4 mt-2">
                                                 <h3>Commentaires:</h3>

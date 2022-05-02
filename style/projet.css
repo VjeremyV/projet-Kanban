@@ -16,3 +16,9 @@
     height: 100%;
     padding: 0;
 }
+
+textarea[name=com]{
+    resize : none;
+    width: 90%;
+    height: 100px;
+}
