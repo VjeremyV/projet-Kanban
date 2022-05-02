@@ -60,3 +60,58 @@ function isUnique(array $bddMail, string $email, string $cle):bool{
     }
     return true;
 }
+/**
+ * verifie la validité d'une date
+ *
+ * @param [string] $date à checker
+ * @param string $format à tester
+ * @return bool
+ */
+function validateDate(string $date, string $format = 'Y-m-d H:i:s'):bool
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
+
+/**
+ * valide la telechargement d'une photo de profil
+ * @param [string] $name
+ * @return boolean
+ */
+function validFile(string $name):bool{
+        if ($_FILES[$name]['name'] !== '') {
+            $type = $_FILES[$name]['type'];
+            $type = explode('/', $type);
+            $type = $type[1];
+            $accept = ['jpeg','png','jpg', 'webp'];
+            if (in_array($type, $accept)) {
+                $upload = __DIR__.'/../../upload/';
+                if (!$directory = opendir($upload)) {
+                    echo '<p>impossible d\'ouvrir le répertoire</p>';
+                }
+                $countFile=0;
+                while ($file = readdir($directory)) {
+                    if (!is_dir($file)) {
+                        $tempType = explode('.',$file);
+                        if (count($tempType) > 1) {
+                            $tempType = $tempType[count($tempType)-1];
+                            if (in_array($tempType,$accept)) {
+                                $countFile = $countFile+1;
+                            }
+                        }
+                    }
+                }
+                $countFile = $countFile+1;
+                $date = date('YmdHms');
+                if (!move_uploaded_file($_FILES[$name]['tmp_name'], $upload.$date.$countFile.'.'.$type)) {
+                    echo 'une erreur est survenue pendant le téléchargement du fichier';
+                } else {
+                    $_POST['photo'] =  $date.$countFile.'.'.$type;
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+}

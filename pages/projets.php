@@ -4,11 +4,12 @@ include_once(__DIR__.'/../template/head.php');
 include_once(__DIR__.'/../template/header.php');
 include_once(__DIR__.'/../src/fonctions/security.php');
 ?>
-
-
+<div>
+<!-- modifie cette div la avec du flex pour impacter celles qui seront créées dans le foreach plus bas -->
+    
     <?php
     if(isConnect()){
-
+        
         try {
             
             $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
@@ -24,9 +25,9 @@ include_once(__DIR__.'/../src/fonctions/security.php');
                 foreach ($projets as $projet) {
                     ?>
                 <div>
-                    <span><a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>&kanban=true"><?= $projet['nom_projet'] ?></a></span>
-                    <span><?= $projet['date_creation_projet'] ?></span>
-                    <span><?= $projet['description_projet'] ?></span>
+                    <span>Nom : <a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>&kanban=true"><?= $projet['nom_projet'] ?></a></span>
+                    <span>Date de création : <?= $projet['date_creation_projet'] ?></span>
+                    <span>Description : <?= $projet['description_projet'] ?></span>
                 </div>
                 
                 <?php
@@ -36,8 +37,9 @@ include_once(__DIR__.'/../src/fonctions/security.php');
     } catch (Exception $e) {
         echo 'Erreur : ' . $e->getMessage();
     }
-    
-    
+    ?>
+    </div>
+    <?php
     include_once(__DIR__.'/../template/footer.php');
 } else {
     header('location: ./../');

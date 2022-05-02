@@ -1,13 +1,16 @@
-/* body{
-    background: black;
-} */
+body{
+    counter-reset: categoriesCounter;
+} 
 .categorieContainer, .categorieContainer li{
     border: 1px solid black;
     border-radius: 5px;
     text-align: center;
 }
 .categorieContainer{
-    width: 15%;
+    counter-increment: categoriesCounter;
+    position: relative;
+    width: 250px;
+    min-height: 400px;
 }
 
 [data-draggable="target"]{
@@ -15,4 +18,16 @@
     width: 100%;
     height: 100%;
     padding: 0;
+}
+
+textarea{
+    resize : none;
+    width: 90%;
+    height: 100px;
+}
+
+.barreTache{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
 }
