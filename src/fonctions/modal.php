@@ -45,9 +45,12 @@ if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['d
 if (isset($_POST['suppression']) && isset($_POST['supprId'])) {
     $stmt = $dbh->prepare('DELETE FROM commentaires WHERE `id_taches_taches` = :idTache');
     if ($stmt->execute(['idTache' => $_POST['supprId']])) {
-        $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_taches_taches` = :idTache');
-        if (!$stmt->execute(['idTache' => $_POST['supprId']])) {
-            echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+        $stmt = $dbh->prepare('DELETE FROM fichiers WHERE `id_taches_taches` = :idTache');
+        if($stmt->execute(['idTache' => $_POST['supprId']])){
+            $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_taches_taches` = :idTache');
+            if (!$stmt->execute(['idTache' => $_POST['supprId']])) {
+                echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+            }
         }
     } else {
         echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
@@ -71,16 +74,19 @@ if (isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])) {
 if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
     $stmt = $dbh->prepare('DELETE commentaires FROM commentaires join taches on commentaires.id_taches_taches = taches.id_taches_taches WHERE taches.id_categorie_categories = :idCat');
     if ($stmt->execute(['idCat' => $_POST['idCat']])) {
-        $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_categorie_categories` = :idCat');
-        if ($stmt->execute(['idCat' => $_POST['idCat']])) {
-            $stmt = $dbh->prepare('select ordre from categories where `id_categorie_categories` = :idcat');
-            if ($stmt->execute(['idcat' => $_POST['idCat']])) {
-                $cats = $stmt->fetchall(PDO::FETCH_NUM)[0][0];
-                $stmt = $dbh->prepare('UPDATE categories set ordre=ordre-1 WHERE ordre > :orderCat;');
-                if ($stmt->execute(['orderCat' => $cats])) {
-                    $stmt = $dbh->prepare('DELETE FROM categories WHERE `id_categorie_categories` = :idCat');
-                    if (!$stmt->execute(['idCat' => $_POST['idCat']])) {
-                        echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+        $stmt = $dbh->prepare('DELETE fichiers FROM fichiers join taches on fichiers.id_taches_taches = taches.id_taches_taches WHERE taches.id_categorie_categories = :idCat');
+        if($stmt->execute(['idCat' => $_POST['idCat']])){
+            $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_categorie_categories` = :idCat');
+            if ($stmt->execute(['idCat' => $_POST['idCat']])) {
+                $stmt = $dbh->prepare('select ordre from categories where `id_categorie_categories` = :idcat');
+                if ($stmt->execute(['idcat' => $_POST['idCat']])) {
+                    $cats = $stmt->fetchall(PDO::FETCH_NUM)[0][0];
+                    $stmt = $dbh->prepare('UPDATE categories set ordre=ordre-1 WHERE ordre > :orderCat;');
+                    if ($stmt->execute(['orderCat' => $cats])) {
+                        $stmt = $dbh->prepare('DELETE FROM categories WHERE `id_categorie_categories` = :idCat');
+                        if (!$stmt->execute(['idCat' => $_POST['idCat']])) {
+                            echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+                        }
                     }
                 }
             }

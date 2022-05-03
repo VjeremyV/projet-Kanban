@@ -113,9 +113,11 @@ if (isConnect()) {
                                                     <?php
 
                                                             }
+                                                        } else {
+                                                            echo "<span>Il n'y a aucun fichier sur cette tâche</span>";
                                                         }
                                                     } else {
-                                                        echo "<br><span>Il n'y a aucun commentaire sur cette tâche</span>";
+                                                        echo "<br><span>Errreur lors de l'affichage des fichiers</span>";
                                                     } ?>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-start px-4 mt-2">
@@ -136,10 +138,9 @@ if (isConnect()) {
                                                                 echo "</table>";
                                                             }
                                                         } else {
-                                                            echo "<span> Erreur lors de l'affichage des commentaires</span>";
-                                                        }
+                                                            echo "<span>Il n'y a aucun commentaire sur cette tâche</span>";                                                        }
                                                     } else {
-                                                        echo "<br><span>Il n'y a aucun commentaire sur cette tâche</span>";
+                                                        echo "<span> Erreur lors de l'affichage des commentaires</span>";
                                                     } ?>
                                                 </div>
                                                 <button class="btn btn-danger mb-3" data-target='#suppr-<?= $res[$j]['id_taches_taches'] ?>' data-toggle='modal'>Supprimer</button>
