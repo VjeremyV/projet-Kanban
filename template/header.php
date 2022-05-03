@@ -23,7 +23,7 @@ include_once(__DIR__ . '/../src/fonctions/affichage.php');
                                 <li><a class='link-<?= isset($_GET['page']) && $_GET['page'] == "encours" ? "warning" : "primary" ?>' <?= isset($_GET['page']) && $_GET['page'] == "encours" ? "title='Lien actif'" : "" ?>href="../pages/projets.php?page=encours">Projet en cours</a></li>
                                 <li><a class="link-<?= isset($_GET['page']) && $_GET['page'] == "terminer_projet" ? "warning" : "primary" ?>" <?= isset($_GET['page']) && $_GET['page'] == "encours" ? "title='Lien actif'" : "" ?>href="../pages/projets.php?page=terminer_projet">Projet Finis</a></li>
                                 <li><a class="link-<?= isset($_GET['page']) && $_GET['page'] == "creerprojet" ? "warning" : "primary" ?>" <?= isset($_GET['page']) && $_GET['page'] == "encours" ? "title='Lien actif'" : "" ?>href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-                                <li><a class="link-<?= isset($_GET['page']) && $_GET['page'] == "profil" ? "warning" : "primary" ?>" <?= isset($_GET['page']) && $_GET['page'] == "encours" ? "title='Lien actif'" : "" ?> href="./pages/profil.php?page=profil"><img class="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+                                <li><a class="link-<?= isset($_GET['page']) && $_GET['page'] == "profil" ? "warning" : "primary" ?>" <?= isset($_GET['page']) && $_GET['page'] == "encours" ? "title='Lien actif'" : "" ?> href="../pages/profil.php?page=profil"><img class="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? '/../upload/' . $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
                                     </a></li>
                                 <li><a class="link-primary" href="./../pages/deconnexion.php">Se déconnecter</a></li>
                             </ul>
@@ -39,7 +39,7 @@ include_once(__DIR__ . '/../src/fonctions/affichage.php');
                             <li><a class="dropdown-item" href="../pages/projets.php?page=encours">Projet en cours</a></li>
                             <li><a class="dropdown-item" href="../pages/projets.php?page=terminer_projet">Projet Finis</a></li>
                             <li><a class="dropdown-item" href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-                            <li><a class="dropdown-item" href="index.php?page=profil"><img class="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+                            <li><a class="dropdown-item" href="index.php?page=profil"><img class="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? '/../upload/' . $_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
                                 </a></li>
                             <li><a class="dropdown-item" href="./../pages/deconnexion.php">Se déconnecter</a></li>
                         </ul>

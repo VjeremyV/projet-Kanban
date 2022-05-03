@@ -107,7 +107,7 @@ function validFile(string $name):bool{
                 if (!move_uploaded_file($_FILES[$name]['tmp_name'], $upload.$date.$countFile.'.'.$type)) {
                     echo 'une erreur est survenue pendant le téléchargement du fichier';
                 } else {
-                    $_POST['photo'] =  "/../upload/".$date.$countFile.'.'.$type;
+                    $_POST['photo'] =  $date.$countFile.'.'.$type;
                     return true;
                 }
             } else {
