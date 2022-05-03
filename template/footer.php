@@ -1,6 +1,6 @@
 </main>
-<footer class="p-2 mt-5 container text-center">
-  <span>© 2022 - Projet Kanban - Réalisé par : Farah, Charles, Christopher, Jérémy, Mika - <a href="https://github.com/VjeremyV/projet-Kanban"><i class="bi bi-github text-black"></i></a></span>
+<footer class="p-2 mt-5 container-fluid text-center bg-dark text-white">
+  <span class="text-light">© 2022 - Projet Kanban - Réalisé par : Farah, Charles, Christopher, Jérémy, Mika - <a href="https://github.com/VjeremyV/projet-Kanban"><i class="bi bi-github text-white"></i></a></span>
 </footer>
 <?php if (isset($_GET['creation']) && $_GET['creation'] == "0") : ?>
   <script src="./../script/createprojet.js"></script>

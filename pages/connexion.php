@@ -2,16 +2,16 @@
 include_once(__DIR__ . '/../src/fonctions/formulaire.php');
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
-    if (isset($_POST['mail']) && isset($_POST['mdp'])) {
-        if (validForm($_POST['mail'])) {
+    if (isset($_POST['email']) && isset($_POST['mdp'])) {
+        if (validForm($_POST['email'])) {
             $recupUser = $dbh->prepare('select * from utilisateur WHERE mail_utilisateur = :mail');
-            if ($recupUser->execute(['mail' => $_POST['mail']])) {
+            if ($recupUser->execute(['mail' => $_POST['email']])) {
                 $res = $recupUser->fetchAll($fetchMode = PDO::FETCH_NAMED);
                 if (password_verify($_POST['mdp'], $res[0]['password_utilisateur'])) {
                     $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
                     if ($recupUser->rowCount() > 0) {
                         session_start();
-                        $_SESSION['mail'] = $_POST['mail'];
+                        $_SESSION['mail'] = $_POST['email'];
                         $_SESSION['id'] = $res[0]['id_utilisateur_utilisateur'];
                         $_SESSION['nom'] = $res[0]['nom_utilisateur'];
                         $_SESSION['prenom'] = $res[0]['prenom_utilisateur'];
