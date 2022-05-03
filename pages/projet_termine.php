@@ -67,7 +67,7 @@ try {
                                     } ?>
                                 </div>
                                 <div class="d-flex flex-column align-items-start px-4 mt-2">
-                                    <h3>Commentaires:</h3>
+                                    <h3>Commentaires :</h3>
                                     <?php
                                     $sth = $dbh->prepare('SELECT * FROM commentaires WHERE id_taches_taches = :id');
                                     if ($sth->execute(array(':id' => $resultat['id_taches_taches']))) {

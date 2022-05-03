@@ -16,15 +16,14 @@ try {
                         $_SESSION['nom'] = $res[0]['nom_utilisateur'];
                         $_SESSION['prenom'] = $res[0]['prenom_utilisateur'];
                         $_SESSION['photo'] = $res[0]['photo_utilisateur'];
-                        header('location: ./pages/projets.php?page=encours');  
+                        header('location: ./pages/projets.php?page=encours');
                     }
-                }       
-                else {
-                    echo '<span class="mt-3 alert alert-danger">erreur vous êtes mauvais</span>';
+                } else {
+                    echo '<span class="mt-3 alert alert-danger">Erreur d\'email ou de mot de passe !</span>';
                 }
             }
         } else {
-            echo '<span lass="mt-3 alert alert-danger">entrez un mail valide!!!</span>';
+            echo '<span lass="mt-3 alert alert-danger">Entrez un mail valide !</span>';
         }
     }
 } catch (Exception $e) {

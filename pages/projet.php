@@ -14,6 +14,6 @@ if (isConnect()) {
         endif;
     include_once(__DIR__ . '/../template/footer.php');
 } else {
-    header('location: ./../');
+    header('location: ./../index.php');
 }
     ?>

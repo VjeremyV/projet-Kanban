@@ -6,7 +6,6 @@ include_once(__DIR__ . '/../src/fonctions/formulaire.php');
 include_once(__DIR__ . '/../src/fonctions/security.php');
 
 if (isConnect()) {
-
     if (isset($_POST['submit'])) {
         if (validForm($_POST['nomProjet']) && validForm($_POST['description']) && validForm($_POST['nbCategorie'], 'int')) {
             try {
@@ -36,7 +35,9 @@ if (isConnect()) {
                             }
                             $i++;
                         }
-                        echo '<span class=" m-3 alert alert-success" role="alert">Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l\'onglet de votre projet </span>';
+                        echo '<span class=" m-3 alert alert-success" role="alert">Votre projet a bien été créé - Veuillez patienter</span>';
+                        //! Rajout du retour  la page des projets en cours au bout de 1 seconde
+                        header('Refresh: 1; url=../pages/projets.php?page=encours');
                     } else {
                         echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Le nom du projet existe déjà</span>';
                     }
@@ -45,8 +46,7 @@ if (isConnect()) {
                 echo 'Erreur : ' . $e->getMessage();
             }
         }
-    }
-?>
+    } ?>
 
 <form action="" method="post">
 
@@ -62,19 +62,19 @@ if (isConnect()) {
 
         <div class="form-floating my-3">
             <input class="form-control" type="text" id="nbCategorie" name="nbCategorie" value="0" placeholder="Nb catégories">
-            <label class="form-label" for="nbCategorie">nombre de Categories</label>
+            <label class="form-label" for="nbCategorie">Nombre de Catégories</label>
         </div>
 
         <div class="container d-flex flex-wrap my-3" id="containerCategorie">
         </div>
 
-        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="créer">
+        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="Créer">
 
     </form>
 
 <?php
     include_once(__DIR__ . '/../template/footer.php');
 } else {
-    header('location: ./../');
+    header('location: ./../index.php');
 }
 ?>

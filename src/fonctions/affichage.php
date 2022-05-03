@@ -1,9 +1,10 @@
 <?php
 
-function setContent($string1, $string2, $string3, $string4, $string5, $string6){
-    if(isset($_GET['page'])){
-       $page = $_GET['page'];
-       switch($page){
+function setContent($string1, $string2, $string3, $string4, $string5, $string6)
+{
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+        switch ($page) {
            case 'inscription':
                echo $string2;
                break;
@@ -25,8 +26,7 @@ function setContent($string1, $string2, $string3, $string4, $string5, $string6){
                echo "Projet : ".$_GET['page'];
                break;
        }
-   }
-   else{
-       echo "$string1";
-   }
+    } else {
+        echo "$string1";
+    }
 }

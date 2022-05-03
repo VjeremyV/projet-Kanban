@@ -56,6 +56,7 @@ include_once(__DIR__.'/../src/fonctions/security.php');
     <?php
     include_once(__DIR__.'/../template/footer.php');
     } else {
-        header('location: ./../');
+        header('location: ./../index.php');
     }
     ?>
+    

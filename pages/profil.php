@@ -2,11 +2,11 @@
 session_start();
 include_once(__DIR__ . '/../template/head.php');
 include_once(__DIR__ . '/../src/fonctions/formulaire.php');
-include_once(__DIR__.'/../src/fonctions/security.php');
-include_once(__DIR__.'/../src/fonctions/modifier.php');
+include_once(__DIR__ . '/../src/fonctions/security.php');
+include_once(__DIR__ . '/../src/fonctions/modifier.php');
 include_once(__DIR__ . '/../template/header.php');
 
-if(isConnect()){
+if (isConnect()) {
     ?>
 <form action="?modification=true" method="POST" class="flex-md-columns col-md-6" enctype="multipart/form-data">
     
@@ -50,6 +50,6 @@ if(isConnect()){
 <?php
 include_once(__DIR__ .'/../template/footer.php');
 } else {
-    header('location: ./../');
+    header('location: ./../index.php');
 }
 ?>
