@@ -35,7 +35,7 @@ include_once(__DIR__.'/../src/fonctions/security.php');
                     ?>
                     
                     <tr>
-                        <td scope="row"><span><a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>&kanban=true"><?= $projet['nom_projet'] ?></a></span></td>
+                        <td scope="row"><span><a href="./projet.php?page=<?= $projet['nom_projet'] ?>&id=<?=$projet['id_projet_projet']?>&kanban=<?= $projets[0]['terminer_projet'] === '0' ? 'true' : 'false' ?>"><?= $projet['nom_projet'] ?></a></span></td>
                         <td><span><?= $projet['date_creation_projet'] ?></span></td>
                         <td><span><?= $projet['description_projet'] ?></span></td>
                     </tr>
