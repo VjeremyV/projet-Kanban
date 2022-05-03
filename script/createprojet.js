@@ -20,10 +20,10 @@ nbCategorie.addEventListener('input', (e) => {
     // on fait ensuite un map du tableau que l'on affiche avec la fonction generateCategories
     let mapCat = currentInput.map((cat) =>
         `
-        <div class="col-4 p-3">
-        <label class="form-label" for="${cat}">Nom de la categorie : </label>
-        <input class="form-control" type="text" id="${cat}" name="${cat}">
-        </div>
+    <div class = "col-4 p-3">
+    <label class ="form-label" for="${cat}">Nom de la categorie : </label>
+    <input class = "form-control" type="text" id="${cat}" name="${cat}">
+    </div>
     `
     ).join("");
     generateCategories(mapCat);

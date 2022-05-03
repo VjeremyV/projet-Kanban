@@ -36,9 +36,9 @@ if (isConnect()) {
                             }
                             $i++;
                         }
-                        echo "<span>Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l'onglet de votre projet </span>";
+                        echo '<span class=" m-3 alert alert-success" role="alert">Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l\'onglet de votre projet </span>';
                     } else {
-                        echo "<span>Le nom du projet existe déjà</span>";
+                        echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Le nom du projet existe déjà</span>';
                     }
                 }
             } catch (Exception $e) {
@@ -48,7 +48,7 @@ if (isConnect()) {
     }
 ?>
 
-    <form action="" method="post">
+<form action="" method="post">
 
         <div class="form-floating my-3">
             <input class="form-control" type="text" id="nomProjet" name="nomProjet" placeholder="nom du projet">

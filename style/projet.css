@@ -20,11 +20,11 @@ body{
     padding: 0;
 }
 
-textarea{
+/* textarea{
     resize : none;
     width: 90%;
     height: 100px;
-}
+} */
 
 .barreTache{
     position: absolute;

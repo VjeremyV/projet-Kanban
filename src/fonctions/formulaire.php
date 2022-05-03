@@ -74,19 +74,22 @@ function validateDate(string $date, string $format = 'Y-m-d H:i:s'):bool
 }
 
 
-/**
- * valide la telechargement d'une photo de profil
- * @param [string] $name
- * @return boolean
- */
-function validFile(string $name):bool{
+ /**
+  *  * valide la telechargement d'une photo de profil
+  * @param string $name
+  * @param [array] $extensions
+  * @param [string] $dir
+  * @param [string] $typeFichier
+  * @return boolean
+  */
+function validFile(string $name, array $extensions, string $dir, string $typeFichier = null):bool{
         if ($_FILES[$name]['name'] !== '') {
             $type = $_FILES[$name]['type'];
             $type = explode('/', $type);
             $type = $type[1];
-            $accept = ['jpeg','png','jpg', 'webp'];
+            $accept = $extensions;
             if (in_array($type, $accept)) {
-                $upload = __DIR__.'/../../upload/';
+                $upload = __DIR__.$dir;
                 if (!$directory = opendir($upload)) {
                     echo '<p>impossible d\'ouvrir le répertoire</p>';
                 }
@@ -107,7 +110,11 @@ function validFile(string $name):bool{
                 if (!move_uploaded_file($_FILES[$name]['tmp_name'], $upload.$date.$countFile.'.'.$type)) {
                     echo 'une erreur est survenue pendant le téléchargement du fichier';
                 } else {
-                    $_POST['photo'] =  $date.$countFile.'.'.$type;
+                    if($typeFichier == 'photo') {
+                        $_POST['photo'] =  $date.$countFile.'.'.$type;
+                    } else {
+                        $_POST['fichier'] = $date.$countFile.'.'.$type;
+                    }
                     return true;
                 }
             } else {

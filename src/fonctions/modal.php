@@ -12,9 +12,9 @@ if (isset($_POST['newTache']) && !empty($_POST['newTache'])) {
 if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['date']) && isset($_POST['idTache'])) {
     $nomTache = htmlentities($_POST['nomTache']);
     $description = htmlentities($_POST['description']);
+    $idTache = $_POST['idTache'];
     if (validateDate($_POST['date'], 'Y-m-d')) {
         $date = htmlentities($_POST['date']);
-        $idTache = $_POST['idTache'];
         $stmt = $dbh->prepare('UPDATE taches set `nom_taches`= :nom, `date_taches`= :date, `description_taches` = :description WHERE `id_taches_taches` = :idTache');
         if (!$stmt->execute(['nom' => $nomTache, 'date' => $date, 'description' => $description, 'idTache' => $idTache])) {
             echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
@@ -27,14 +27,30 @@ if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['d
             echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
         }
     }
+    if (isset($_FILES['fichier']) && !empty($_FILES['fichier']['name'])) {
+        if (validFile('fichier', ['jpeg', 'png', 'jpg', 'webp', 'pdf', 'doc', 'docx', 'xls', 'xlsx'], '/../../upload/fichiers/')) {
+            $fichier = htmlentities($_POST['fichier']);
+            $stmt = $dbh->prepare("insert into fichiers (`nom_fichiers`, `date_fichiers`,`id_taches_taches`,`id_utilisateur_utilisateur`,`user_nom_fichier`) VALUES (:fichier, :date, :idTache, :idUser, :userNomFichier)");
+            if (!$stmt->execute(['fichier' => $fichier, 'date' => date('Y-m-d'), 'idTache' => $idTache, 'idUser' => $_SESSION['id'], 'userNomFichier' => $_FILES['fichier']['name']])) {
+                echo "<span>Une erreur lors du téléchargement est survenue</span>";
+            } else {
+                echo '<span>erreur bdd</span>';
+            }
+        } else {
+            echo "<span>erreur  validFile</span>";
+        }
+    }
 }
 
 if (isset($_POST['suppression']) && isset($_POST['supprId'])) {
     $stmt = $dbh->prepare('DELETE FROM commentaires WHERE `id_taches_taches` = :idTache');
     if ($stmt->execute(['idTache' => $_POST['supprId']])) {
-        $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_taches_taches` = :idTache');
-        if (!$stmt->execute(['idTache' => $_POST['supprId']])) {
-            echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+        $stmt = $dbh->prepare('DELETE FROM fichiers WHERE `id_taches_taches` = :idTache');
+        if($stmt->execute(['idTache' => $_POST['supprId']])){
+            $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_taches_taches` = :idTache');
+            if (!$stmt->execute(['idTache' => $_POST['supprId']])) {
+                echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+            }
         }
     } else {
         echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
@@ -58,17 +74,20 @@ if (isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])) {
 if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
     $stmt = $dbh->prepare('DELETE commentaires FROM commentaires join taches on commentaires.id_taches_taches = taches.id_taches_taches WHERE taches.id_categorie_categories = :idCat');
     if ($stmt->execute(['idCat' => $_POST['idCat']])) {
-        $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_categorie_categories` = :idCat');
-        if ($stmt->execute(['idCat' => $_POST['idCat']])) {
-            $stmt = $dbh->prepare('select ordre from categories where `id_categorie_categories` = :idcat');
-            if ($stmt->execute(['idcat' => $_POST['idCat']])) {
-                $cats = $stmt->fetchall(PDO::FETCH_NUM)[0][0];
-                $stmt = $dbh->prepare('UPDATE categories set ordre=ordre-1 WHERE ordre > :orderCat;');
-                if ($stmt->execute(['orderCat' => $cats])) {
-                    $stmt = $dbh->prepare('DELETE FROM categories WHERE `id_categorie_categories` = :idCat');
-                    if (!$stmt->execute(['idCat' => $_POST['idCat']])) {
-                        echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
-                    } 
+        $stmt = $dbh->prepare('DELETE fichiers FROM fichiers join taches on fichiers.id_taches_taches = taches.id_taches_taches WHERE taches.id_categorie_categories = :idCat');
+        if($stmt->execute(['idCat' => $_POST['idCat']])){
+            $stmt = $dbh->prepare('DELETE FROM taches WHERE `id_categorie_categories` = :idCat');
+            if ($stmt->execute(['idCat' => $_POST['idCat']])) {
+                $stmt = $dbh->prepare('select ordre from categories where `id_categorie_categories` = :idcat');
+                if ($stmt->execute(['idcat' => $_POST['idCat']])) {
+                    $cats = $stmt->fetchall(PDO::FETCH_NUM)[0][0];
+                    $stmt = $dbh->prepare('UPDATE categories set ordre=ordre-1 WHERE ordre > :orderCat;');
+                    if ($stmt->execute(['orderCat' => $cats])) {
+                        $stmt = $dbh->prepare('DELETE FROM categories WHERE `id_categorie_categories` = :idCat');
+                        if (!$stmt->execute(['idCat' => $_POST['idCat']])) {
+                            echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+                        }
+                    }
                 }
             }
         } else {
@@ -76,5 +95,26 @@ if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
         }
     } else {
         echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+    }
+}
+
+//! Je vais chercher le projet a cloturer pour passer le statut à terminé
+
+if (isset($_POST['closeProjet']) && isset($_POST['idProjet'])) {
+    $stmt = $dbh->prepare('UPDATE projet set terminer_projet=1 WHERE `id_projet_projet` = :idProjet');
+    if ($stmt->execute(['idProjet' => $_GET['id']])) {
+        header("location:/../../pages/projets.php?page=terminer_projet");
+        echo '<span class="mt-3 alert alert-success">Le projet a été cloturé</span>';
+    } else {
+        echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
+    }
+}
+
+if (isset($_POST['suppressionFichier']) && isset($_POST['suppressionIdFichier']) && isset($_POST['suppressionNomFichier'])) {
+    $idFichier = htmlentities($_POST['suppressionIdFichier']);
+    $stmt = $dbh->prepare('DELETE FROM fichiers WHERE `id_fichier_fichiers` = :idFichier');
+    if ($stmt->execute(['idFichier' => $idFichier])) {
+        unlink(__DIR__ . '/../../upload/fichiers/' . $_POST['suppressionNomFichier']);
+        echo "<span class='m-5 alert-success'>Votre fichier a bien été supprimé </span>";
     }
 }
