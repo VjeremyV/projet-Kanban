@@ -15,9 +15,9 @@ if (isset($_POST['UpdatePosition']) && isset($_POST['idCatInputPosition']) && is
     $stmt = $dbh->prepare('update categories set `ordre`=:ordre WHERE `id_categorie_categories`= :idCat');
     if ($stmt->execute(['ordre' => $UpdatePosition, 'idCat' => $idCatInputPosition])) {
         if (!$stmt->execute(['ordre' => $UpdateSiblingPosition, 'idCat' => $idCatUpdateSiblingPosition])) {
-            echo '<p> un problème est survenu avec la synchronisation avec la base de données </p>';
+            echo '<p> Un problème est survenu avec la synchronisation avec la base de données </p>';
         }
     } else {
-        echo '<p> un problème est survenu avec la synchronisation avec la base de données </p>';
+        echo '<p> Un problème est survenu avec la synchronisation avec la base de données </p>';
     }
 }

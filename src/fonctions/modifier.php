@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
                                 }
                             } else {
                                 include_once(__DIR__ . '/../../pages/profil.php');
-                                echo '<span class="mt-3 alert alert-danger" role="alert">le mail est déjà en base de données</span>';
+                                echo '<span class="mt-3 alert alert-danger" role="alert">Le mail est déjà en base de données</span>';
                             }
                         }
                     }
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
                         $mdp = password_hash($_POST['pass'], PASSWORD_DEFAULT);
                         $stmt = $dbh->prepare('update utilisateur set password_utilisateur=:pwd WHERE `id_utilisateur_utilisateur`=:id');
                         if ($stmt->execute(['pwd' => $mdp, 'id' => $_SESSION['id']])) {
-                            echo '<span class="mt-3 alert alert-success" role="alert">Le changement de mot de passe est réussi </span>';
+                            echo '<span class="mt-3 alert alert-success" role="alert">Le changement du mot de passe est réussi </span>';
                         } else {
                             echo '<span class="mt-3 alert alert-danger" role="alert"> Erreur lors de la soumission du formulaire</span>';
                         }
@@ -59,11 +59,11 @@ if (isset($_POST['submit'])) {
                     $photo = htmlentities($_POST['photo']);
                     $stmt = $dbh->prepare("update utilisateur set `photo_utilisateur`=:photo WHERE `id_utilisateur_utilisateur`=:id");
                     if ($stmt->execute(['photo' => $photo, 'id' => $_SESSION['id']])) {
-                        if($_SESSION['photo'] !== null){
+                        if ($_SESSION['photo'] !== null) {
                             unlink(__DIR__.'/../../upload/photos/'.$_SESSION['photo']);
                         }
                         $_SESSION['photo'] = $_POST['photo'];
-                        echo '<span class="mt-3 alert alert-success" role="alert">Le changement de votre photo est chargé</span>';
+                        echo '<span class="mt-3 alert alert-success" role="alert">Le changement de votre photo est effectué</span>';
                     } else {
                         echo '<span class="mt-3 alert alert-danger" role="alert"> Erreur lors de la soumission du formulaire</span>';
                     }

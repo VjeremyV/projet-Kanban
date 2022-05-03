@@ -9,19 +9,19 @@ let setUpdatePosition = document.getElementById('setUpdatePosition');
 let item2;
 console.log(setUpdatePosition);
 
-function updateCategoriePosition(element, sens){
-    let container = element.parentNode.parentNode; 
+function updateCategoriePosition(element, sens) {
+    let container = element.parentNode.parentNode;
     let sibling;
-    if(sens === 'monter'){
+    if (sens === 'monter') {
         sibling = container.nextSibling.nextSibling;
-    } else if( sens === 'descendre'){
+    } else if (sens === 'descendre') {
         sibling = container.previousSibling.previousSibling;
     }
 
     let containerOrder = container.style.order;
     let siblingContainerOrder = sibling.style.order;
 
-    let idCatContainer = container.getAttribute('data-id'); 
+    let idCatContainer = container.getAttribute('data-id');
     let idCatSibling = sibling.getAttribute('data-id');
 
     updatePosition.setAttribute('value', siblingContainerOrder);
@@ -29,7 +29,7 @@ function updateCategoriePosition(element, sens){
 
     UpdateSiblingPosition.setAttribute('value', containerOrder);
     idCatUpdateSiblingPosition.setAttribute('value', idCatSibling);
-    
+
 
 }
 

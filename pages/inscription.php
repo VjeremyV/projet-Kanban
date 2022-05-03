@@ -35,7 +35,7 @@ echo '
 
         <div class="d-flex justify-content-center justify-content-md-between align-items-center mt-3">
             <div class="g-recaptcha mt-3 my-mt-0" data-sitekey="6LeW3LMfAAAAAMugN2owWR3iIAJVqOfjfebFecZc"></div>
-            <input type="submit" value="s\'incrire" name="submit" class="btn btn-primary h-25">
+            <input type="submit" value="S\'inscrire" name="submit" class="btn btn-primary h-25">
             </div>
     </form>
 

@@ -64,7 +64,7 @@ if(isConnect()){
                                 } else {
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail);");
                                     if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail])) {
-                                        echo '<span class=" m-3 alert alert-success" role="alert">Votre inscription s\'est bien passée, Mais </span> <br>';
+                                        echo '<span class=" m-3 alert alert-success" role="alert">Votre inscription s\'est bien passée</span> <br>';
                                         echo '<span class="m-3 alert alert-dark" role="alert">Votre photo de profil ne correspond pas aux critères exigés</span>';
                                         } else {
                                             echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert"> Erreur lors de la soumission du formulaire</span>';
@@ -81,14 +81,14 @@ if(isConnect()){
                             }
                         } else {
                             include_once('./pages/inscription.php');
-                            echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">le mail est déjà en base de données</span>';
+                            echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Le mail est déjà existant</span>';
                         }
                     } catch (Exception $e) {
                         echo 'Erreur : ' . $e->getMessage();
                     }
                 } else {
                     include_once('./pages/inscription.php');
-                    echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Votre mot de passe ne contient pas les caractères attendus (1 Maj, 1 Min, 1 Chiffre, 1 carac spécial)</span>';
+                    echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Votre mot de passe doit contenir 8 caractères dont 1 Maj, 1 Min, 1 Chiffre et 1 Caractère Spécial</span>';
                 }
                 $dbh = null;
             } else {
@@ -96,11 +96,11 @@ if(isConnect()){
                 echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Vos mots de passes ne correspondent pas</span>';
             } 
             } else {
-                echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">veuillez renseigner correctement tous les champs</span>';
+                echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Veuillez renseigner correctement tous les champs</span>';
             }
         } else {
             include_once('./pages/inscription.php');
-            echo '<span class="mt-5 alert alert-danger messageErreurs" role="alert">veuillez cocher le Recaptcha</span>';
+            echo '<span class="mt-5 alert alert-danger messageErreurs" role="alert">Veuillez cocher le Recaptcha</span>';
         }
     } else {
         include_once('./pages/inscription.php');

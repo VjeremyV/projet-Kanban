@@ -34,10 +34,10 @@ if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['d
             if (!$stmt->execute(['fichier' => $fichier, 'date' => date('Y-m-d'), 'idTache' => $idTache, 'idUser' => $_SESSION['id'], 'userNomFichier' => $_FILES['fichier']['name']])) {
                 echo "<span>Une erreur lors du téléchargement est survenue</span>";
             } else {
-                echo '<span>erreur bdd</span>';
+                echo '<span>Erreur de connexion à la base de données</span>';
             }
         } else {
-            echo "<span>erreur  validFile</span>";
+            echo "<span>Erreur de validation de fichier</span>";
         }
     }
 }
@@ -98,7 +98,7 @@ if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
     }
 }
 
-//! Je vais chercher le projet a cloturer pour passer le statut à terminé
+//! Je vais chercher le projet à cloturer pour passer le statut à terminé
 
 if (isset($_POST['closeProjet']) && isset($_POST['idProjet'])) {
     $stmt = $dbh->prepare('UPDATE projet set terminer_projet=1 WHERE `id_projet_projet` = :idProjet');
