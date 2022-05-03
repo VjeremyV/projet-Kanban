@@ -9,22 +9,22 @@ console.log(containerCategorie);
  */
 function generateCategories(variable) {
     containerCategorie.innerHTML = variable;
-  }
+}
 
 nbCategorie.addEventListener('input', (e) => {
     //on fait une boucle pour implémenter le tableau recapitulatif du nbre de catégories demandées
-    
-    for (i = 0; i < e.target.value ; i++) {
-        currentInput.push("categorie"+i);
+
+    for (i = 0; i < e.target.value; i++) {
+        currentInput.push("categorie" + i);
     }
     // on fait ensuite un map du tableau que l'on affiche avec la fonction generateCategories
     let mapCat = currentInput.map((cat) =>
-    `
+        `
     <label for="${cat}">Nom de la categorie : </label>
     <input type="text" id="${cat}" name="${cat}">
     `
     ).join("");
     generateCategories(mapCat);
     // on vide le tableau
-    currentInput= [];
+    currentInput = [];
 })

@@ -32,7 +32,7 @@ if (isConnect()) {
                         while (isset($_POST['categorie' . $i])) {
                             if (validForm($_POST['categorie' . $i])) {
                                 $nomCat = htmlentities($_POST['categorie' . $i]);
-                                $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id'], 'ordre' => $i+1]);
+                                $stmt->execute(['nom' => $nomCat, 'idProjet' => $idProjet, 'idUtilisateur' => $_SESSION['id'], 'ordre' => $i + 1]);
                             }
                             $i++;
                         }
@@ -50,19 +50,25 @@ if (isConnect()) {
 
     <form action="" method="post">
 
-        <label for="nomProjet">Nom du projet : </label>
-        <input type="text" id="nomProjet" name="nomProjet">
-
-        <label for="description">Description: </label>
-        <textarea id="description" name="description"></textarea>
-
-        <label for="nbCategorie">nombre de Categories: </label>
-        <input type="text" id="nbCategorie" name="nbCategorie" value="0">
-
-        <div id="containerCategorie">
+        <div class="form-floating my-3">
+            <input class="form-control" type="text" id="nomProjet" name="nomProjet" placeholder="nom du projet">
+            <label class="form-label" for="nomProjet">Nom du projet</label>
         </div>
 
-        <input type="submit" name="submit" value="creer">
+        <div class="form-floating my-3">
+            <textarea class="form-control" id="description" name="description" placeholder="description"></textarea>
+            <label class="form-label" for="description">Description</label>
+        </div>
+
+        <div class="form-floating my-3">
+            <input class="form-control" type="text" id="nbCategorie" name="nbCategorie" value="0" placeholder="Nb catégories">
+            <label class="form-label" for="nbCategorie">nombre de Categories</label>
+        </div>
+
+        <div class="form-floating my-3" id="containerCategorie">
+        </div>
+
+        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="creer">
 
     </form>
 
