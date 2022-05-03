@@ -95,20 +95,12 @@ if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
 //! Je vais chercher le projet a cloturer pour passer le statut à terminé
 
 if (isset($_POST['closeProjet']) && isset($_POST['idProjet'])) {
-    $stmt = $dbh->prepare('SELECT * FROM projet WHERE `id_projet_projet` = :idProjet');
+    $stmt = $dbh->prepare('UPDATE projet set terminer_projet=1 WHERE `id_projet_projet` = :idProjet');
     if ($stmt->execute(['idProjet' => $_GET['id']])) {
-        $projet = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($projet['terminer_projet'] == 0) {
-            $stmt = $dbh->prepare('UPDATE projet set terminer_projet=1 WHERE `id_projet_projet` = :idProjet');
-            if (!$stmt->execute(['idProjet' => $_GET['id']])) {
-                echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
-            }
-            echo '<span class="mt-3 alert alert-success">Le projet a été cloturé</span>';
-        } else {
-            echo '<span class="mt-3 alert alert-warning" role="alert">Le projet est déjà cloturé</span>';
-        }
+        header("location:/../../pages/projets.php?page=terminer_projet");
+        echo '<span class="mt-3 alert alert-success">Le projet a été cloturé</span>';
     } else {
-        echo '<span class="mt-3 alert alert-danger" role="alert">Une erreur lors de la mise à jour du kanban a été detectée</span>';
+        echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
     }
 }
 
@@ -116,7 +108,7 @@ if (isset($_POST['suppressionFichier']) && isset($_POST['suppressionIdFichier'])
     $idFichier = htmlentities($_POST['suppressionIdFichier']);
     $stmt = $dbh->prepare('DELETE FROM fichiers WHERE `id_fichier_fichiers` = :idFichier');
     if ($stmt->execute(['idFichier' => $idFichier])) {
-        unlink(__DIR__.'/../../upload/fichiers/'.$_POST['suppressionNomFichier']);
+        unlink(__DIR__ . '/../../upload/fichiers/' . $_POST['suppressionNomFichier']);
         echo "<span class='m-5 alert-success'>Votre fichier a bien été supprimé </span>";
     }
 }
