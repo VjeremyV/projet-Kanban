@@ -36,9 +36,9 @@ if (isConnect()) {
                             }
                             $i++;
                         }
-                        echo "<span>Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l'onglet de votre projet </span>";
+                        echo '<span class=" m-3 alert alert-success" role="alert">Votre projet a bien été créé</span> <br><span>Vous pourrez définir les champs manquants dans l\'onglet de votre projet </span>';
                     } else {
-                        echo "<span>Le nom du projet existe déjà</span>";
+                        echo '<span class="mt-3 alert alert-danger messageErreurs" role="alert">Le nom du projet existe déjà</span>';
                     }
                 }
             } catch (Exception $e) {
@@ -48,21 +48,27 @@ if (isConnect()) {
     }
 ?>
 
-    <form action="" method="post">
+<form action="" method="post">
 
-        <label for="nomProjet">Nom du projet : </label>
-        <input type="text" id="nomProjet" name="nomProjet">
-
-        <label for="description">Description: </label>
-        <textarea id="description" name="description"></textarea>
-
-        <label for="nbCategorie">nombre de Categories: </label>
-        <input type="text" id="nbCategorie" name="nbCategorie" value="0">
-
-        <div id="containerCategorie">
+        <div class="form-floating my-3">
+            <input class="form-control" type="text" id="nomProjet" name="nomProjet" placeholder="nom du projet">
+            <label class="form-label" for="nomProjet">Nom du projet</label>
         </div>
 
-        <input type="submit" name="submit" value="creer">
+        <div class="form-floating my-3">
+            <textarea class="form-control" id="description" name="description" placeholder="description"></textarea>
+            <label class="form-label" for="description">Description</label>
+        </div>
+
+        <div class="form-floating my-3">
+            <input class="form-control" type="text" id="nbCategorie" name="nbCategorie" value="0" placeholder="Nb catégories">
+            <label class="form-label" for="nbCategorie">nombre de Categories</label>
+        </div>
+
+        <div class="container d-flex flex-wrap my-3" id="containerCategorie">
+        </div>
+
+        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="créer">
 
     </form>
 

@@ -9,19 +9,24 @@ if(isConnect()){
 } else {
     ?>
     
-    <form action="" method="POST" class="d-flex justify-content-end align-items-center">
-        <label class = "m-1" for="mail">Votre email</label>
-        <input class = "m-1" type="text" name="mail" />
-    
-        <label class = "m-1" for="mdp">Votre mot de passe</label>
-        <input class = "m-1" type="password" name="mdp" />
-        
-        <input class = "m-1 btn btn-primary" type="submit" value="Se connecter" name="submit">
+    <form action="" method="POST" class="d-flex justify-content-end align-items-center mb-3">
+        <div class="form-floating mx-2 h-25">
+            <input class="form-control m-1" type="text" id="email" name="email" placeholder="email" />
+            <label class="form-label m-1" for="email">Votre email</label>
+        </div>
+
+        <div class="form-floating mx-2">
+            <input class="form-control m-1" id="mdp" type="password" name="mdp" placeholder="pass" />
+            <label class="form-label m-1" for="mdp">Votre mot de passe</label>
+        </div>
+
+        <input class="m-1 btn btn-primary" type="submit" value="Se connecter" name="submit">
     </form>
+
+    <?php include_once('./src/core/routeur.php');?>
     <div class="d-md-flex mt-4 mb-5 justify-content-center align-items-center">
 
     <?php
-    include_once('./src/core/routeur.php');
     if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
         $validName = validForm($_POST['name']);
         $validSurname = validForm($_POST['surname']);
