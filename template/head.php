@@ -15,7 +15,7 @@
         <?php if (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
         <link rel="stylesheet" href="./../style/projet.css">
         <link rel="stylesheet" href="./../style/modal.css">
-        <?php elseif (isset($_GET['kanban']) && $_GET['kanban'] == "false"): ?>
+        <?php elseif ((isset($_GET['kanban']) && $_GET['kanban'] == "false") || (isset($_GET['page']) && $_GET['page']== "encours")): ?>
                 <link rel="stylesheet" href="./../style/modal.css">
         <?php endif ?>
 </head>

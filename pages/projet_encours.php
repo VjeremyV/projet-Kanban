@@ -157,21 +157,7 @@
                                 <button class="btn btn-danger bi bi-trash3-fill" data-target='#modal-suppr-<?= $resultat['id_categorie_categories'] ?>' data-toggle=modal></button>
                                 <button class="btn btn-primary fw-bold addbutton bi bi-plus-square" data-target='#modal-new-<?= $resultat['id_categorie_categories'] ?>' data-toggle=modal></button>
                             </div>
-                            <div class="modal" id="modal-new-categorie" role="dialog">
-                                <div class="mw-100 bg-light mx-auto my-auto rounded">
-                                    <form action="" method="post">
-                                        <div class="p-3 border-bottom border-dark d-flex flex-column justiy-content-center align-items-start">
-                                            <label for="newCategorie">Intitulé de la Catégorie</label>
-                                            <input type="text" id='newCategorie' name='newCategorie' class="h3"></input>
-                                        </div>
-                                        <input type="hidden" name="idProjet" value="<?= $_GET['id'] ?>">
-                                        <div class="border-top border-dark px-5 py-3 fs-5 d-flex ">
-                                            <button role="button" class="btn btn-danger m-2" data-dismiss="dialog">Fermer</button>
-                                            <input type="submit" class="btn btn-success m-2" value="Envoyer">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                       
 
                             <div class="modal" id="modal-suppr-<?= $resultat['id_categorie_categories'] ?>" role="dialog">
                                 <div class="mw-100 text-light mx-auto my-auto rounded">
@@ -211,6 +197,22 @@
         <?php
                     }
                 }
+                ?><div class="modal" id="modal-new-categorie" role="dialog">
+                <div class="mw-100 bg-light mx-auto my-auto rounded">
+                    <form action="" method="post">
+                        <div class="p-3 border-bottom border-dark d-flex flex-column justiy-content-center align-items-start">
+                            <label for="newCategorie">Intitulé de la Catégorie</label>
+                            <input type="text" id='newCategorie' name='newCategorie' class="h3"></input>
+                        </div>
+                        <input type="hidden" name="idProjet" value="<?= $_GET['id'] ?>">
+                        <div class="border-top border-dark px-5 py-3 fs-5 d-flex ">
+                            <button role="button" class="btn btn-danger m-2" data-dismiss="dialog">Fermer</button>
+                            <input type="submit" class="btn btn-success m-2" value="Envoyer">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <?php
             }
         } catch (Exception $e) {
             echo 'Erreur : ' . $e->getMessage();
