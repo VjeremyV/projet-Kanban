@@ -68,7 +68,7 @@ if (isConnect()) {
         <div class="container d-flex flex-wrap my-3" id="containerCategorie">
         </div>
 
-        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="creer">
+        <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="créer">
 
     </form>
 
