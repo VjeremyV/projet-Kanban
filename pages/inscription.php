@@ -1,6 +1,5 @@
 <?php
 echo '
-<div class="d-md-flex mt-4 mb-5 justify-content-center align-items-center">
     <form action="?inscription=true" method="POST" class="flex-md-columns col-md-6" enctype="multipart/form-data">
 
         <div class="form-floating my-3">
@@ -42,28 +41,5 @@ echo '
 
     <span class="border-end border-success border-5 rounded mx-md-5 d-none d-md-flex"></span>
 
-    <div class="d-flex col-md-6 mt-4 mt-md-0"> 
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="https://picsum.photos/id/0/5616/3744" class="d-block w-100" alt="image de présentation tretrello">
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="https://picsum.photos/id/1/5616/3744" class="d-block w-100" alt="image de présentation tretrello">
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="https://picsum.photos/id/1008/5616/3744" class="d-block w-100" alt="image de présentation tretrello">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-</div>
+   
     ';

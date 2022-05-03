@@ -1,7 +1,7 @@
 <?php include_once(__DIR__.'/../src/fonctions/security.php');
 include_once(__DIR__.'/../src/fonctions/affichage.php');
 ?>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <body>
 <header class="container-fluid" role="banner">
 
@@ -17,12 +17,12 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
                 ?>
 <nav class=" col-lg-8 d-none d-lg-block">
     <ul class="d-flex text-black-50 fw-bold justify-content-between fs-5 mt-3 align-items-center">
-        <li><a class='link-<?= isset($_GET['page']) && $_GET['page']== "encours" ? "warning" : "primary"?>' <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=encours" >Projet en cours</a></li>
-        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "terminer_projet" ? "warning" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=terminer_projet" >Projet Finis</a></li>
-        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "creerprojet" ? "warning" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "profil" ? "warning" : "primary"?>"<?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?> href="../pages/profil.php?page=profil" ><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? '/../upload/'.$_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+        <li><a class='bi bi-journal-text link-<?= isset($_GET['page']) && $_GET['page']== "encours" ? "secondary" : "primary"?>' <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=encours" > Projet en cours</a></li>
+        <li><a class="bi bi-calendar-check link-<?= isset($_GET['page']) && $_GET['page']== "terminer_projet" ? "secondary" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/projets.php?page=terminer_projet" > Projet Finis</a></li>
+        <li><a class="bi bi-calendar-plus link-<?= isset($_GET['page']) && $_GET['page']== "creerprojet" ? "secondary" : "primary"?>" <?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?>href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
+        <li><a class="link-<?= isset($_GET['page']) && $_GET['page']== "profil" ? "secondary" : "primary"?>"<?= isset($_GET['page']) && $_GET['page']== "encours" ? "title='Lien actif'" : ""?> href="../pages/profil.php?page=profil" ><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? './../upload/photos/'.$_SESSION['photo'] : "./../style/assets/defaultUser.webp"  ?>" alt="">
 </a></li>
-        <li><a class="link-primary" href="./../pages/deconnexion.php">Se déconnecter</a></li>
+        <li><a class="link-primary bi bi-box-arrow-right" href="./../pages/deconnexion.php"> Se déconnecter</a></li>
     </ul>
 </nav>
 
@@ -35,11 +35,11 @@ include_once(__DIR__.'/../src/fonctions/affichage.php');
     </svg>
 </a>
 
-<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-    <li><a class="dropdown-item" href="../pages/projets.php?page=encours" >Projet en cours</a></li>
-    <li><a class="dropdown-item" href="../pages/projets.php?page=terminer_projet" >Projet Finis</a></li>
-    <li><a class="dropdown-item" href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
-    <li><a class="dropdown-item" href="index.php?page=profil" ><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? '/../upload/'.$_SESSION['photo'] : "/../style/assets/defaultUser.webp"  ?>" alt="">
+<ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+    <li><a class="dropdown-item bi-journal-text" href="../pages/projets.php?page=encours" > Projet en cours</a></li>
+    <li><a class="dropdown-item bi-calendar-check" href="../pages/projets.php?page=terminer_projet" > Projet Finis</a></li>
+    <li><a class="dropdown-item bi bi-calendar-plus" href="../pages/createprojet.php?creation=0&page=creerprojet"> Créer Projet</a></li>
+    <li><a class="dropdown-item" href="../pages/profil.php?page=profil"><img class ="userImage" src=" <?= isset($_SESSION['photo']) && !empty($_SESSION['photo']) ? './../upload/photos/'.$_SESSION['photo'] : "./../style/assets/defaultUser.webp"  ?>" alt="">
 </a></li>
     <li><a class="dropdown-item" href="./../pages/deconnexion.php">Se déconnecter</a></li>
 </ul>

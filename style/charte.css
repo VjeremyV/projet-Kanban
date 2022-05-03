@@ -11,3 +11,22 @@
     width: 50px;
     height: 50px;
 }
+nav li > a{
+    text-decoration: none;
+}
+textarea{
+    resize : none;
+    width: 90%;
+    height: 100px;
+}
+
+.listFichier{
+    width: 300px;
+}
+
+.messageErreurs{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+}
