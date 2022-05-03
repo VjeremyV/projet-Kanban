@@ -20,7 +20,7 @@ if (isConnect()) {
             <label class="form-label m-1" for="mdp">Votre mot de passe</label>
         </div>
 
-        <input class="btn btn-primary m-1 btn btn-primary" type="submit" value="Se connecter" name="submit">
+        <input class="btn btn-primary m-1" type="submit" value="Se connecter" name="submit">
     </form>
 
 <?php

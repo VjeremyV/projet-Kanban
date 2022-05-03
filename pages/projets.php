@@ -4,7 +4,7 @@ include_once(__DIR__ . '/../template/head.php');
 include_once(__DIR__ . '/../template/header.php');
 include_once(__DIR__ . '/../src/fonctions/security.php');
 ?>
-<div>
+<div class="d-flex justify-content-evenly mt-3">
     <!-- modifie cette div la avec du flex pour impacter celles qui seront créées dans le foreach plus bas -->
 
     <?php
