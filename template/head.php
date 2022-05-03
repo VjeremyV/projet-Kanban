@@ -14,6 +14,8 @@
         <?php if (isset($_GET['kanban']) && $_GET['kanban'] == "true"): ?>
         <link rel="stylesheet" href="./../style/projet.css">
         <link rel="stylesheet" href="./../style/modal.css">
+        <?php elseif (isset($_GET['kanban']) && $_GET['kanban'] == "false"): ?>
+                <link rel="stylesheet" href="./../style/modal.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <?php endif ?>
 </head>

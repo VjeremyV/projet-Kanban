@@ -22,7 +22,7 @@
             $stmt = $dbh->prepare('SELECT `nom_categories`,`id_categorie_categories`,`ordre` FROM categories join projet on categories.id_projet_projet = projet.id_projet_projet WHERE projet.id_projet_projet = :idProjet ORDER BY ordre');
             if ($stmt->execute(['idProjet' => $idProjet])) {
                 $resultats = $stmt->fetchall($fetchMode = PDO::FETCH_NAMED);
-                $i = 0;
+                $i = 0; //pour Hervé
                 $categories = [];
 
                 $stmt = $dbh->prepare('SELECT `id_taches_taches`,`nom_taches`,`date_taches`,`description_taches`,`duree_taches`, categories.id_categorie_categories FROM `taches` join categories ON categories.id_categorie_categories = taches.id_categorie_categories WHERE categories.id_projet_projet = :idProjet');
