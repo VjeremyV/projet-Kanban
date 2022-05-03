@@ -65,7 +65,7 @@ if (isConnect()) {
             <label class="form-label" for="nbCategorie">nombre de Categories</label>
         </div>
 
-        <div class="form-floating my-3" id="containerCategorie">
+        <div class="container d-flex flex-wrap my-3" id="containerCategorie">
         </div>
 
         <input class="btn btn-primary d-flex justify-content-end" type="submit" name="submit" value="creer">
