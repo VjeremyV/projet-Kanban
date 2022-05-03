@@ -47,7 +47,7 @@ if(isConnect()){
                             $mail = $_POST['mail'];
                             $password = crypt($_POST['pass'], CRYPT_SHA512);
                             if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
-                                if(validFile('file')){
+                                if(validFile('file', ['jpeg','png','jpg', 'webp'], '/../../upload/photos/', 'photo')){
                                     $photo = htmlentities($_POST['photo']);
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
                                     if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {
