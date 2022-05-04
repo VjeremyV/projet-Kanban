@@ -1,15 +1,16 @@
 <?php
 include_once("./template/head.php");
 include_once("./template/header.php");
-include_once('./pages/connexion.php');
-include_once('./src/fonctions/formulaire.php');
-include_once('./src/fonctions/security.php');
-if(isConnect()){
+include_once('./pages/connexion.php');//gère la connexion
+include_once('./src/fonctions/formulaire.php');//contient les fonctions formulaires
+include_once('./src/fonctions/security.php');//contient les fonctions de securité
+
+if(isConnect()){//vérifie si la connexion est établie sinon renvoie à l'accueil
     ?><p>Bonjour <?= $_SESSION['prenom']." ".$_SESSION['nom']?></p><?php
 } else {
     ?>
     
-    <form action="" method="POST" class="d-flex justify-content-end align-items-center mb-3">
+    <form action="" method="POST" class="d-flex flex-column flex-md-row justify-content-end align-items-center mb-3">
         <div class="form-floating mx-2 h-25">
             <input class="form-control m-1" type="text" id="email" name="email" placeholder="email" />
             <label class="form-label m-1" for="email">Votre email</label>
@@ -28,32 +29,32 @@ if(isConnect()){
 
     <?php
     if (isset($_GET['inscription']) && $_GET['inscription'] === "true") {
-        $validName = validForm($_POST['name']);
-        $validSurname = validForm($_POST['surname']);
-        $validmail = validForm($_POST['mail'], "mail");
-        $validMdp = validForm($_POST['pass']);
-        $egalMdp = egalvalue($_POST['pass'], $_POST['realpass']);
+        $validName = validForm($_POST['name']);//voir fonction validForm dans fonctions/formulaire.php
+        $validSurname = validForm($_POST['surname']);//voir fonction validForm dans fonctions/formulaire.php
+        $validmail = validForm($_POST['mail'], "mail");//voir fonction validForm dans fonctions/formulaire.php
+        $validMdp = validForm($_POST['pass']);//voir fonction validForm dans fonctions/formulaire.php
+        $egalMdp = egalvalue($_POST['pass'], $_POST['realpass']);//voir fonction egalvalue dans fonctions/formulaire.php
         $secretKey = '6LeW3LMfAAAAAA7ZpTzAdmjOe_5gOn7ToSLcdQOn';
-        $responseKey = $_POST['g-recaptcha-response'];
-        $userIP = $_SERVER['REMOTE_ADDR'];
-        $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$userIP";
-        $response = file_get_contents($url);
-        $response = json_decode($response);
-        if ($response->success) {
-            if ($validName && $validmail && $validMdp && $validSurname && $validMdp) {
-                if($egalMdp){
+        $responseKey = $_POST['g-recaptcha-response'];//traitement recaptcha
+        $userIP = $_SERVER['REMOTE_ADDR'];//traitement recaptcha
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$userIP";//traitement recaptcha
+        $response = file_get_contents($url);//traitement recaptcha
+        $response = json_decode($response);//traitement recaptcha
+        if ($response->success) {//si recaptcha ok
+            if ($validName && $validmail && $validMdp && $validSurname && $validMdp) {//si champs valides
+                if($egalMdp){//si mdp egaux
                 $regex = "/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/";
-                if(preg_match($regex, $_POST['pass'])){
+                if(preg_match($regex, $_POST['pass'])){//si mdp correspondant à la regex
                     try {
                         $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
                         $vMail = $dbh->query('SELECT `mail_utilisateur` FROM `utilisateur`', $fetchMode = PDO::FETCH_NAMED)->fetchall();
-                        if (isUnique($vMail, $_POST['mail'], 'mail_utilisateur')) {
+                        if (isUnique($vMail, $_POST['mail'], 'mail_utilisateur')) {//si le mail est unique en bdd (voir fonction isunique dans formulaire.php)
                             $name = htmlentities(ucfirst(strtolower(trim($_POST['name']))));
                             $surname = htmlentities(ucfirst(strtolower(trim($_POST['surname']))));
                             $mail = $_POST['mail'];
                             $password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-                            if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
-                                if(validFile('file', ['jpeg','png','jpg', 'webp'], '/../../upload/photos/', 'photo')){
+                            if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){//si on a un fichier
+                                if(validFile('file', ['jpeg','png','jpg', 'webp'], '/../../upload/photos/', 'photo')){// on verifie sa validité (voir fonction validfile dans formulaire.php)
                                     $photo = htmlentities($_POST['photo']);
                                     $stmt = $dbh->prepare("insert into utilisateur (`nom_utilisateur`,`prenom_utilisateur`, `password_utilisateur`,`mail_utilisateur`, `photo_utilisateur`) VALUES (:nom, :prenom, :mdp, :mail, :photo);");
                                     if ($stmt->execute(['nom' => $name, 'prenom' => $surname, 'mdp' => $password, 'mail' => $mail , 'photo' => $photo])) {

@@ -1,4 +1,6 @@
 <?php
+//fichier des fonctions formulaires 
+
 /**
  * valide les entrées formulaires
  *

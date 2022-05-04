@@ -1,3 +1,4 @@
+<!-- formulaire caché qui s'implémente tout seul lorsque l'on change une catégorie de position et met à jour la bdd -->
 <form action="" method="post" id="setUpdatePosition">
             <input type="hidden" value="" id="UpdatePosition" name="UpdatePosition">
             <input type="hidden" value="" id="idCatInputPosition" name="idCatInputPosition">

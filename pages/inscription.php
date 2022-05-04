@@ -1,4 +1,4 @@
-<?php
+<?php //formulaire d'inscription de la page index.php
 echo '
     <form action="?inscription=true" method="POST" class="flex-md-columns col-md-6" enctype="multipart/form-data">
 

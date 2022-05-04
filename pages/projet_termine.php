@@ -1,4 +1,6 @@
 <?php
+//page projet terminé
+    if (isConnect()) {
 $idProjet = $_GET['id'];
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=tretrello', 'tretrello', 'tretrello', array(PDO::ATTR_PERSISTENT => true));
@@ -13,37 +15,37 @@ try {
     } ?>
     <div>
         <?php
-        // $stmt = $dbh->prepare(' SELECT * FROM `taches` WHERE `id_projet_projet` =:idProjet ORDER BY `date_taches`');
         $stmt = $dbh->prepare('select DISTINCT `date_taches` from taches WHERE `id_projet_projet`=:idProjet');
         if ($stmt->execute(['idProjet' => $idProjet])) {
             $dates = $stmt->fetchAll($fetchMode = PDO::FETCH_NAMED);
             $j = 1;
-            foreach ($dates as $date) {
-                echo $date['date_taches'];
+            foreach ($dates as $date) { //On affiche les taches classées par date
+                echo "<span class='fs-3 fw-bold'>".$date['date_taches']."</span>";
                 echo "<div class='d-flex flex-wrap justify-content-start'>";
                 $stmt = $dbh->prepare('select * from taches WHERE `date_taches`=:date AND `id_projet_projet`=:idProjet');
                 if ($stmt->execute(['date' => $date['date_taches'], 'idProjet' => $idProjet])) {
                     $resultats = $stmt->fetchAll($fetchMode = PDO::FETCH_NAMED);
-                    foreach ($resultats as $resultat) {
-        ?>
+                    foreach ($resultats as $resultat) {?>
+
                         <ul class="border p-2 m-1">
-                            <li class="p-2 m-1">Intitulé de la tâche : <?= $resultat['nom_taches'] ?></li>
-                            <li class="p-2 m-1">Date : <?= $resultat['date_taches'] ?></li>
-                            <li class="p-2 m-1">Description : <?= $resultat['description_taches'] ?></li>
+                            <li class="p-2 m-1"><span class="fs-5 fw-bold"> Intitulé de la tâche :</span> <?= $resultat['nom_taches'] ?></li>
+                            <li class="p-2 m-1"><span class="fs-5 fw-bold"> Date :</span> <?= $resultat['date_taches'] ?></li>
+                            <li class="p-2 m-1"><span class="fs-5 fw-bold">Description :</span> <?= $resultat['description_taches'] ?></li>
                             <button class="btn btn-primary" data-target='#modal-agrandir<?= $j ?>' data-toggle=modal>Agrandir</button>
                         </ul>
-
+                        <!-- modale agranddisement de la tache -->
                         <div class="modal w-100 h-100" id="modal-agrandir<?= $j ?>">
-                            <div class="border-dark bg-light px-5 w-50 h-75 mx-auto my-auto rounded d-flex flex-column justify-content-center" role="dialog">
+                            <div class="border-dark bg-light px-5 mx-auto my-auto rounded d-flex flex-column justify-content-center" role="dialog">
                                 <ul>
                                     <li class="p-2 m-1">Intitulé de la tâche : <?= $resultat['nom_taches'] ?></li>
                                     <li class="p-2 m-1">Date : <?= $resultat['date_taches'] ?></li>
-                                    <li class="p-2 m-1">Description : <?= $resultat['description_taches'] ?></li>
+                                    <li class="p-2 m-1>Description : <?= $resultat['description_taches'] ?></li>
                                 </ul>
 
                                 <div class="d-flex flex-column align-items-start px-4 mt-2">
                                     <h3>Fichiers:</h3>
                                     <?php
+                                    // on affiche les fichiers de la tache
                                     $sth = $dbh->prepare('SELECT * FROM fichiers WHERE id_taches_taches = :id');
                                     if ($sth->execute(array(':id' => $resultat['id_taches_taches']))) {
                                         $fichiers = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -65,10 +67,10 @@ try {
                                     } else {
                                         echo "<br><span>Errreur lors de l'affichage des fichiers</span>";
                                     } ?>
-                                </div>
-                                <div class="d-flex flex-column align-items-start px-4 mt-2">
+                                <div class="d-flex flex-column align-items-start mt-2">
                                     <h3>Commentaires:</h3>
                                     <?php
+                                      // on affiche les commentaires de la tache
                                     $sth = $dbh->prepare('SELECT * FROM commentaires WHERE id_taches_taches = :id');
                                     if ($sth->execute(array(':id' => $resultat['id_taches_taches']))) {
                                         $commentaires = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -88,10 +90,11 @@ try {
                                     } else {
                                         echo "<span> Erreur lors de l'affichage des commentaires</span>";
                                     } ?>
+                                    </div>
+                                    <button class="my-3 btn btn-success" role="button" data-dismiss="dialog">Réduire</button>
                                 </div>
-                                <button class="m-3 btn btn-success" role="button" data-dismiss="dialog">Réduire</button>
                             </div>
-                        </div>
+                       
         <?php
                         $j++;
                     }
@@ -106,4 +109,7 @@ try {
     //SELECT * FROM `taches` WHERE `id_projet_projet` = 13 ORDER BY `date_taches`;
 } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
+}
+} else {
+    header('location: ./../index.php');
 }

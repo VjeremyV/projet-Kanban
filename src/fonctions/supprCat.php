@@ -1,4 +1,5 @@
 <?php
+//supprime un projet (nom du fichier mal nommé)
 if (isset($_GET['suppr']) && !empty($_GET['suppr'])) {
     $idProjet = $_GET['suppr'];
     $stmt = $dbh->prepare('SELECT * FROM taches WHERE `id_projet_projet` = :idProjet');

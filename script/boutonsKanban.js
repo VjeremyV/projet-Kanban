@@ -9,6 +9,11 @@ let setUpdatePosition = document.getElementById('setUpdatePosition');
 let item2;
 console.log(setUpdatePosition);
 
+/**
+ * fonction qui met à jour la position des categories
+ * @param {string} element 
+ * @param {string} sens 
+ */
 function updateCategoriePosition(element, sens){
     let container = element.parentNode.parentNode; 
     let sibling;
@@ -29,16 +34,15 @@ function updateCategoriePosition(element, sens){
 
     UpdateSiblingPosition.setAttribute('value', containerOrder);
     idCatUpdateSiblingPosition.setAttribute('value', idCatSibling);
-    
-
 }
 
+// on assigne des evenement à tous nos boutonsMoins
 boutonMoins.forEach(bouton => bouton.addEventListener('click', (e) => {
     updateCategoriePosition(e.target, 'descendre');
     setUpdatePosition.submit();
 }))
 
-
+// on assigne des evenement à tous nos boutonsPlus
 boutonPlus.forEach(bouton => bouton.addEventListener('click', (e) => {
     updateCategoriePosition(e.target, 'monter');
     setUpdatePosition.submit();

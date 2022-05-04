@@ -1,12 +1,13 @@
 <?php
+//page de profil utilisateur
 session_start();
 include_once(__DIR__ . '/../template/head.php');
-include_once(__DIR__ . '/../src/fonctions/formulaire.php');
-include_once(__DIR__.'/../src/fonctions/security.php');
-include_once(__DIR__.'/../src/fonctions/modifier.php');
+include_once(__DIR__ . '/../src/fonctions/formulaire.php');//fichier de fonctions gestion de formulaire
+include_once(__DIR__.'/../src/fonctions/security.php'); // fichier qui gère la sécurité de la connexion
+include_once(__DIR__.'/../src/fonctions/modifier.php');//fichier qui gère les opérations de la page profil.php avec la bdd
 include_once(__DIR__ . '/../template/header.php');
 
-if(isConnect()){
+if(isConnect()){//vérifie si la connexion est établie sinon renvoie à l'accueil
     ?>
 <form action="?modification=true" method="POST" class="flex-md-columns col-md-6" enctype="multipart/form-data">
     

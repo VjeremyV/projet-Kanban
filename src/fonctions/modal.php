@@ -1,5 +1,9 @@
 <?php
-include_once(__DIR__ . '/formulaire.php');
+//fichier qui gère la mise à jour de la bdd lors de la soumission d'un formulaire modale dans la page projet
+
+include_once(__DIR__ . '/formulaire.php');//fichiers des fonctions formulaire
+
+//ajout d'une nouvelle tache
 if (isset($_POST['newTache']) && !empty($_POST['newTache'])) {
     $newTache = htmlentities($_POST['newTache']);
     $newDescription = $_POST['newDescription'];
@@ -9,6 +13,7 @@ if (isset($_POST['newTache']) && !empty($_POST['newTache'])) {
     }
 }
 
+//mise à jour d'une nouvelle tache
 if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['date']) && isset($_POST['idTache'])) {
     $nomTache = htmlentities($_POST['nomTache']);
     $description = htmlentities($_POST['description']);
@@ -42,6 +47,7 @@ if (isset($_POST['nomTache']) && isset($_POST['description']) && isset($_POST['d
     }
 }
 
+//suppression d'une tache
 if (isset($_POST['suppression']) && isset($_POST['supprId'])) {
     $stmt = $dbh->prepare('DELETE FROM commentaires WHERE `id_taches_taches` = :idTache');
     if ($stmt->execute(['idTache' => $_POST['supprId']])) {
@@ -57,6 +63,7 @@ if (isset($_POST['suppression']) && isset($_POST['supprId'])) {
     }
 }
 
+//ajoute une categorie
 if (isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])) {
     $newCat = htmlentities($_POST['newCategorie']);
     $stmt = $dbh->prepare('select Count(*) from categories Where `id_projet_projet` = :idProjet');
@@ -71,6 +78,7 @@ if (isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])) {
     }
 }
 
+//supprimer une catégorie
 if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
     $stmt = $dbh->prepare('DELETE commentaires FROM commentaires join taches on commentaires.id_taches_taches = taches.id_taches_taches WHERE taches.id_categorie_categories = :idCat');
     if ($stmt->execute(['idCat' => $_POST['idCat']])) {
@@ -98,18 +106,19 @@ if (isset($_POST['supprCat']) && isset($_POST['idCat'])) {
     }
 }
 
-//! Je vais chercher le projet a cloturer pour passer le statut à terminé
-
+// cloture un projet
 if (isset($_POST['closeProjet']) && isset($_POST['idProjet'])) {
     $stmt = $dbh->prepare('UPDATE projet set terminer_projet=1 WHERE `id_projet_projet` = :idProjet');
     if ($stmt->execute(['idProjet' => $_GET['id']])) {
-        header("location:/../../pages/projets.php?page=terminer_projet");
         echo '<span class="mt-3 alert alert-success">Le projet a été cloturé</span>';
+        header("location: /../../pages/projets.php?page=terminer_projet");
+        exit;
     } else {
         echo "<span>Une erreur lors de la mise à jour du kanban a été detectée</span>";
     }
 }
 
+// supprime un fichier
 if (isset($_POST['suppressionFichier']) && isset($_POST['suppressionIdFichier']) && isset($_POST['suppressionNomFichier'])) {
     $idFichier = htmlentities($_POST['suppressionIdFichier']);
     $stmt = $dbh->prepare('DELETE FROM fichiers WHERE `id_fichier_fichiers` = :idFichier');

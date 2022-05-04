@@ -1,5 +1,5 @@
 <?php
-
+//fichier qui gère la mise à jour de la bdd lors d'un drag and drop d'une tache
 if(isset($_POST['saveTacheInput']) && isset($_POST['idCatInput'])){
     if(is_numeric($_POST['saveTacheInput']) && is_numeric($_POST['idCatInput'])){
         $stmt = $dbh->prepare('SELECT count(*) FROM `categories` WHERE `id_categorie_categories` = :idCat AND id_projet_projet ='.$idProjet);
